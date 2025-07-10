@@ -25,17 +25,38 @@ ENCYCLOPEDIA_DATA = {
             "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
         ),
     },
+    "MicroOperaciones": {
+        "title": "Microsoft Encarta",
+        "content": (
+            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
+            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
+        ),
+        "Label" : "micro.png"
+    },
+    "CL": {
+        "title": "Microsoft Encarta",
+        "content": (
+            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
+            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
+        ),
+    },
+    "Assemblr": {
+        "title": "Microsoft Encarta",
+        "content": (
+            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
+            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
+        ),
+    },
 }
 
 class EncartaApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Encarta-like Encyclopedia")
-        self.geometry("800x600")
+        self.title("ARCHI: Asistente Virtual")
+        self.geometry("800x700")
 
         self.main_frame = None
         self.search_frame = None
-
         self.show_main_menu()
 
     def show_main_menu(self):
@@ -48,14 +69,14 @@ class EncartaApp(tk.Tk):
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
         # Imagen centrada
-        self.image = Image.open("sample_image.png")  # Asegúrate de tener esta imagen en tu carpeta
+        self.image = Image.open("sample_image.png")
         #self.image = self.image.resize((200, 200), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(self.image)
         self.image_label = ttk.Label(self.main_frame, image=self.photo)
         self.image_label.pack(pady=10)
 
         # Título de la aplicación
-        title = ttk.Label(self.main_frame, text="Enciclopedia Interactiva", font=(None, 20, 'bold'))
+        title = ttk.Label(self.main_frame, text="ARCHI", font=(None, 20, 'bold'))
         title.pack(pady=5)
 
         # Botones de navegación
@@ -64,10 +85,12 @@ class EncartaApp(tk.Tk):
 
         buttons = [
             ("Buscar Temas", self.show_search_page),
-            ("Matemáticas", lambda: self.show_topic("Python")),
-            ("Historia", lambda: self.show_topic("Encarta")),
-            ("Tecnología", lambda: self.show_topic("Tkinter")),
-            ("Ciencias", lambda: self.show_topic("Python")),
+            ("Concepto 1", lambda: self.show_topic("Python")),
+            ("Concepto 2", lambda: self.show_topic("Encarta")),
+            ("Concepto 3", lambda: self.show_topic("Tkinter")),
+            ("Micro-Operaciones", lambda: self.show_topic("MicroOperaciones")),
+            ("Circuitos Lógicos", lambda: self.show_topic("CL")),
+            ("Assemblr", lambda: self.show_topic("Assemblr")),
             ("Salir", self.quit)
         ]
 
@@ -151,6 +174,29 @@ class EncartaApp(tk.Tk):
             self.title_label.config(text=data['title'])
             self.content_text.delete(1.0, tk.END)
             self.content_text.insert(tk.END, data['content'])
+
+            # Si existe un Label (imagen) para el tema, mostrarla
+            if 'Label' in data:
+                try:
+                    image_path = data['Label']
+                    img = Image.open(image_path)
+                    img = img.resize((500, 400))
+                    self.topic_photo = ImageTk.PhotoImage(img)
+
+                    # Si ya existe una imagen previa, eliminarla
+                    if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
+                        self.topic_image_label.destroy()
+
+                    # Crear y mostrar imagen nueva
+                    self.topic_image_label = ttk.Label(self.search_frame, image=self.topic_photo)
+                    self.topic_image_label.pack(pady=10)
+
+                except Exception as e:
+                    messagebox.showwarning("Imagen no encontrada", f"No se pudo cargar la imagen: {e}")
+            else:
+                # Si no hay imagen para el tema, eliminar la previa si existe
+                if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
+                    self.topic_image_label.destroy()
         else:
             messagebox.showerror("Error", f"No se encontró información para '{topic}'.")
 
