@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from PIL import Image, ImageTk  # Necesario para manejar imágenes
 
 # Sample data: topics and their content
 ENCYCLOPEDIA_DATA = {
@@ -32,11 +33,64 @@ class EncartaApp(tk.Tk):
         self.title("Encarta-like Encyclopedia")
         self.geometry("800x600")
 
-        # Configure PanedWindow for resizable panels
-        paned = ttk.Panedwindow(self, orient=tk.HORIZONTAL)
+        self.main_frame = None
+        self.search_frame = None
+
+        self.show_main_menu()
+
+    def show_main_menu(self):
+        if self.search_frame:
+            self.search_frame.pack_forget()
+        if self.main_frame:
+            self.main_frame.pack_forget()
+
+        self.main_frame = ttk.Frame(self)
+        self.main_frame.pack(fill=tk.BOTH, expand=True)
+
+        # Imagen centrada
+        self.image = Image.open("sample_image.png")  # Asegúrate de tener esta imagen en tu carpeta
+        #self.image = self.image.resize((200, 200), Image.ANTIALIAS)
+        self.photo = ImageTk.PhotoImage(self.image)
+        self.image_label = ttk.Label(self.main_frame, image=self.photo)
+        self.image_label.pack(pady=10)
+
+        # Título de la aplicación
+        title = ttk.Label(self.main_frame, text="Enciclopedia Interactiva", font=(None, 20, 'bold'))
+        title.pack(pady=5)
+
+        # Botones de navegación
+        button_frame = ttk.Frame(self.main_frame)
+        button_frame.pack(pady=20)
+
+        buttons = [
+            ("Buscar Temas", self.show_search_page),
+            ("Matemáticas", lambda: self.show_topic("Python")),
+            ("Historia", lambda: self.show_topic("Encarta")),
+            ("Tecnología", lambda: self.show_topic("Tkinter")),
+            ("Ciencias", lambda: self.show_topic("Python")),
+            ("Salir", self.quit)
+        ]
+
+        for i, (text, command) in enumerate(buttons):
+            btn = ttk.Button(button_frame, text=text, command=command)
+            btn.grid(row=i // 2, column=i % 2, padx=10, pady=10)
+
+    def show_search_page(self):
+        if self.main_frame:
+            self.main_frame.pack_forget()
+        if self.search_frame:
+            self.search_frame.pack_forget()
+
+        self.search_frame = ttk.Frame(self)
+        self.search_frame.pack(fill=tk.BOTH, expand=True)
+
+        # Botón de regreso
+        back_button = ttk.Button(self.search_frame, text="← Volver al inicio", command=self.show_main_menu)
+        back_button.pack(anchor=tk.W, padx=10, pady=5)
+
+        paned = ttk.Panedwindow(self.search_frame, orient=tk.HORIZONTAL)
         paned.pack(fill=tk.BOTH, expand=True)
 
-        # Left frame: navigation
         nav_frame = ttk.Frame(paned, width=200)
         paned.add(nav_frame, weight=1)
 
@@ -50,10 +104,8 @@ class EncartaApp(tk.Tk):
         self.topic_list.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
 
-        # Populate topics
         self.populate_list()
 
-        # Right frame: content display
         content_frame = ttk.Frame(paned)
         paned.add(content_frame, weight=4)
 
@@ -70,14 +122,19 @@ class EncartaApp(tk.Tk):
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.content_text.config(yscrollcommand=scrollbar.set)
 
+    def show_topic(self, topic):
+        self.show_search_page()
+        self.search_var.set(topic)
+        self.update_list()
+        self.topic_list.selection_set(0)
+        self.display_topic()
+
     def populate_list(self):
-        """Carga todos los temas en la lista de navegación."""
         self.topic_list.delete(0, tk.END)
         for topic in sorted(ENCYCLOPEDIA_DATA.keys()):
             self.topic_list.insert(tk.END, topic)
 
     def update_list(self, event=None):
-        """Filtra los temas según lo escrito en la caja de búsqueda."""
         query = self.search_var.get().lower()
         filtered = [t for t in ENCYCLOPEDIA_DATA if query in t.lower()]
         self.topic_list.delete(0, tk.END)
@@ -85,7 +142,6 @@ class EncartaApp(tk.Tk):
             self.topic_list.insert(tk.END, topic)
 
     def display_topic(self, event=None):
-        """Muestra el título y contenido del tema seleccionado."""
         selection = self.topic_list.curselection()
         if not selection:
             return
