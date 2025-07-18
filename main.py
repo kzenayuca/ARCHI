@@ -12,7 +12,8 @@ ENCYCLOPEDIA_DATA = {
         "content": (
             "ARCHI es un asistente virtual diseñado para ayudarte a explorar temas relacionados con sistemas digitales y analógicos, micro-operaciones, circuitos lógicos y más. "
             "Utiliza el menú principal para navegar por los temas o utiliza la función de búsqueda para encontrar información específica."
-            "Texto antes de la imagen. [IMAGE:micro.png] Texto después de la imagen. [IMAGE:micro.png] Más texto."
+            "[IMAGE:micro.png]"
+            "[IMAGE:micro.png] Más texto."
         ),
     },
 
