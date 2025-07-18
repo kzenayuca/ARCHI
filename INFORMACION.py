@@ -106,7 +106,7 @@ class EncartaApp(tk.Tk):
         buttons = [
             ("Buscar Temas", self.show_search_page),
             ("Concepto 1", lambda: self.show_topic("RepresentacionesAnalogicas")),
-            ("Concepto 2", lambda: self.show_topic("EncarSistemasDigitalesyAnalógicosta")),
+            ("Concepto 2", lambda: self.show_topic("SistemasNuméricos")),
             ("Concepto 3", lambda: self.show_topic("RepresentacionesDigitales")),
             ("Micro-Operaciones", lambda: self.show_topic("MicroOperaciones")),
             ("Circuitos Lógicos", lambda: self.show_topic("CL")),
