@@ -35,17 +35,6 @@ ENCYCLOPEDIA_DATA = {
         ),
     },
 
-
-    "SistemasDigitalesyAnalógicos": {
-        "title": "SistemasDigitalesyAnalógicos",
-        "content": (
-               "Un sistema digital es la combinación de dispositivos diseñados para manipular información lógica o cantidades físicas que se representan en forma digital; es decir, las cantidades solo pueden tener valores discretos."
-            "Estos dispositivos, por lo general, son electrónicos, pero también pueden ser mecánicos, magnétivos o neumáticos. Algunos de los sistemas digitales más comunes son las computadoras y las calculadoras digitales, los equipos de audio y video digital y el sistema telefónico."
-            "Un sistema analógico contiene dispositivos que manipulan cantidades físicas que se representan en forma analógica."
-            "En un sistema analógico, las cantidades pueden variar sobre un intervalo continuo de valores."
-            "Por ejemplo, la amplitud de la señal de salida a la bocina en un receptor de radio puede tener cualquier valor entre cero y su límite máximo."
-        ),
-    },
     "MicroOperaciones": {
         "title": "MicroOperaciones",
         "content": (
@@ -106,7 +95,7 @@ class EncartaApp(tk.Tk):
         buttons = [
             ("Buscar Temas", self.show_search_page),
             ("Concepto 1", lambda: self.show_topic("RepresentacionesAnalogicas")),
-            ("Concepto 2", lambda: self.show_topic("SistemasNuméricos")),
+            ("Concepto 2", lambda: self.show_topic("SistemasNumericos")),
             ("Concepto 3", lambda: self.show_topic("RepresentacionesDigitales")),
             ("Micro-Operaciones", lambda: self.show_topic("MicroOperaciones")),
             ("Circuitos Lógicos", lambda: self.show_topic("CL")),
