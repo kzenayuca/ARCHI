@@ -4,50 +4,55 @@ from PIL import Image, ImageTk  # Necesario para manejar imágenes
 
 # Sample data: topics and their content
 ENCYCLOPEDIA_DATA = {
-    "Python": {
-        "title": "Python Programming Language",
+    "RepresentacionesAnalogicas": {
+        "title": "REpresentaciones Analógicas",
         "content": (
-            "Python es un lenguaje de programación interpretado, de alto nivel y propósito general. "
-            "Creado por Guido van Rossum y lanzado por primera vez en 1991, Python cuenta con una sintaxis clara y legible."
+            "En la representación analógica una cantidad se representa mediante un indicador proporcional que varía en forma continua. Un ejemplo es el velocímetro de los automóviles clásicos de las décadas de 1960 o 1970. La deﬂexión de la aguja es proporcional a la velocidad del automóvil y sigue cualquier cambio que se produzca a medida que el vehículo aumente o reduzca su velocidad. En los automóviles antiguos se utilizaba un eje mecánico ﬂexible para conectar la transmisión con el velocímetro en el tablero. Es interesante observar que en automóviles recientes, por lo general, se preﬁere la representación analógica, aun y cuando la velocidad ahora se mide en forma digital."
+        
         ),
     },
-    "Tkinter": {
-        "title": "Tkinter GUI Toolkit",
+    "RepresentacionesDigitales": {
+        "title": "RepresentacionesDigitales",
         "content": (
-            "Tkinter es la biblioteca estándar de Python para la creación de interfaces gráficas de usuario (GUI). "
-            "Proporciona un conjunto de widgets como botones, etiquetas, cuadros de texto, y permite construir ventanas y diálogos interactivos."
+            "En la representación digital las cantidades se representan no mediante indicadores que varían en forma continua, sino mediante símbolos llamados dígitos."
+            "Considere como ejempo el reloj digital, que indica la hora del día en forma de dígitos decimales que representan horas y minutos."
+            "Como es sabido, la hora del día cambia en forma continua pero la lectura del reloj digital no cambia así, sino que cambia en intervalos de uno por minuto (o por segundo)."
+            "En otras palabras, esta representación digital de la hora del día cambia en incrementos discretos en comparación con la repressentación de la hora que proporciona un reloj de pared operado mediante corriente alterna analógica, donde la lectura cambia en forma continua."
+
         ),
     },
-    "Encarta": {
-        "title": "Microsoft Encarta",
+    "SistemasDigitalesyAnalógicos": {
+        "title": "SistemasDigitalesyAnalógicos",
         "content": (
-            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
-            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
+               "Un sistema digital es la combinación de dispositivos diseñados para manipular información lógica o cantidades físicas que se representan en forma digital; es decir, las cantidades solo pueden tener valores discretos."
+            "Estos dispositivos, por lo general, son electrónicos, pero también pueden ser mecánicos, magnétivos o neumáticos. Algunos de los sistemas digitales más comunes son las computadoras y las calculadoras digitales, los equipos de audio y video digital y el sistema telefónico."
+            "Un sistema analógico contiene dispositivos que manipulan cantidades físicas que se representan en forma analógica."
+            "En un sistema analógico, las cantidades pueden variar sobre un intervalo continuo de valores."
+            "Por ejemplo, la amplitud de la señal de salida a la bocina en un receptor de radio puede tener cualquier valor entre cero y su límite máximo."
         ),
     },
     "MicroOperaciones": {
-        "title": "Microsoft Encarta",
+        "title": "MicroOperaciones",
         "content": (
-            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
-            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
+           " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mi eros, feugiat eget orci quis, sodales imperdiet mauris. Maecenas et arcu maximus, egestas odio a, aliquam augue. Donec magna lorem, finibus in euismod nec, rhoncus at ligula. Curabitur nec dui quis lectus tincidunt tristique eu id risus. Nam a dolor a lorem placerat laoreet. Proin ut lobortis purus. Pellentesque sed malesuada lorem, nec mollis magna. Morbi vel odio eu massa laoreet semper. Fusce vitae dapibus velit. Aliquam erat volutpat. Nullam et cursus nunc, accumsan feugiat ex. Suspendisse eget diam vitae lacus bibendum facilisis. Mauris dapibus ligula a odio sodales faucibus. Curabitur blandit dignissim sapien, vel rhoncus erat aliquet quis. Suspendisse varius velit luctus, lacinia erat in, faucibus ligula. Nam in eros a nisl tempus varius sagittis vel diam. Duis dignissim tristique mi, pulvinar malesuada odio. Donec eu tellus ac orci maximus pharetra vitae nec augue. In accumsan, dolor sit amet ornare consequat, massa odio bibendum eros, non imperdiet ante erat et velit. Quisque eu ipsum id neque laoreet placerat et varius tellus. Vivamus posuere sem dui, sit amet luctus augue finibus ac. Mauris ultricies, elit a dapibus efficitur, urna justo venenatis metus, at aliquet augue nibh eu magna. Sed id scelerisque lacus, ac finibus erat. Morbi blandit leo eget sapien pulvinar dapibus. Nam fringilla ac arcu sit amet vulputate. Nulla a enim in lectus gravida vehicula lacinia in diam. Praesent tellus purus, efficitur et urna quis, suscipit gravida dolor. In nec orci sit amet enim placerat lobortis. Maecenas malesuada libero ut purus feugiat, nec aliquet orci elementum. Ut posuere diam lobortis, pretium elit et, sodales ante. Morbi tempus risus vestibulum velit efficitur faucibus. Curabitur luctus congue pharetra. Quisque sagittis libero velit, vitae maximus lorem finibus nec. Morbi sed viverra augue. Fusce vestibulum ex eget egestas efficitur. Nam vulputate tempus nibh, id elementum ipsum commodo sed. Aliquam erat volutpat. Nunc non dignissim ante. Pellentesque consequat, nulla quis suscipit elementum, nunc purus dapibus magna, eu blandit eros orci sed mauris. Phasellus vulputate dolor eget tincidunt vehicula. Integer a faucibus felis. Phasellus tristique et dolor sed fermentum. Integer id tincidunt felis, et tincidunt ligula. Proin lacinia, orci id viverra feugiat, mauris elit efficitur justo, nec pellentesque risus ex eget massa. Integer eleifend accumsan urna sit amet pharetra. Donec auctor vitae risus non sollicitudin. Nunc eu ipsum nunc. Donec ornare felis a nulla semper elementum nec ut quam. Etiam est augue, commodo finibus ullamcorper eget, volutpat sagittis libero. Pellentesque ac pulvinar quam. Curabitur dictum congue lacinia. Donec imperdiet felis vel tortor consectetur, vel rutrum sem dignissim. In sollicitudin turpis non ligula porttitor rhoncus. Aenean ac condimentum mauris. Pellentesque et lobortis felis. Quisque id lorem a lorem suscipit sagittis nec id sapien. Integer eleifend porttitor mattis. Pellentesque nibh mi, finibus sed leo non, laoreet euismod sem. Phasellus nec nunc porta, vulputate arcu eu, vulputate purus. "
         ),
         "Label" : "micro.png"
     },
     "CL": {
-        "title": "Microsoft Encarta",
+        "title": "Circuitos Logicos",
         "content": (
-            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
-            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
+            "Circuitos Logicos"
         ),
     },
     "Assemblr": {
-        "title": "Microsoft Encarta",
+        "title": "Assemblr",
         "content": (
-            "Microsoft Encarta fue una enciclopedia digital multimedia publicada por Microsoft entre 1993 y 2009. "
-            "Ofrecía artículos, imágenes, videos y actividades interactivas para estudiantes y usuarios generales."
-        ),
+            "Assemblr"
+            ),
     },
 }
+
+
 
 class EncartaApp(tk.Tk):
     def __init__(self):
@@ -85,9 +90,9 @@ class EncartaApp(tk.Tk):
 
         buttons = [
             ("Buscar Temas", self.show_search_page),
-            ("Concepto 1", lambda: self.show_topic("Python")),
-            ("Concepto 2", lambda: self.show_topic("Encarta")),
-            ("Concepto 3", lambda: self.show_topic("Tkinter")),
+            ("Concepto 1", lambda: self.show_topic("RepresentacionesAnalogicas")),
+            ("Concepto 2", lambda: self.show_topic("EncarSistemasDigitalesyAnalógicosta")),
+            ("Concepto 3", lambda: self.show_topic("RepresentacionesDigitales")),
             ("Micro-Operaciones", lambda: self.show_topic("MicroOperaciones")),
             ("Circuitos Lógicos", lambda: self.show_topic("CL")),
             ("Assemblr", lambda: self.show_topic("Assemblr")),
