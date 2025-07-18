@@ -11,16 +11,31 @@ ENCYCLOPEDIA_DATA = {
         
         ),
     },
-    "RepresentacionesDigitales": {
-        "title": "RepresentacionesDigitales",
-        "content": (
-            "En la representación digital las cantidades se representan no mediante indicadores que varían en forma continua, sino mediante símbolos llamados dígitos."
-            "Considere como ejempo el reloj digital, que indica la hora del día en forma de dígitos decimales que representan horas y minutos."
-            "Como es sabido, la hora del día cambia en forma continua pero la lectura del reloj digital no cambia así, sino que cambia en intervalos de uno por minuto (o por segundo)."
-            "En otras palabras, esta representación digital de la hora del día cambia en incrementos discretos en comparación con la repressentación de la hora que proporciona un reloj de pared operado mediante corriente alterna analógica, donde la lectura cambia en forma continua."
 
+    "SistemasNumericos": {
+        "title": "Sistemas Numéricos",
+        "content": (
+            "En la tecnología digital se utilizan muchos sistemas numéricos. Los más comunes son los siguientes: "
+            "decimal, binario, octal y hexadecimal. Siendo el sistema decimal el más conocido, de uso diario. "
+            "Analicemos algunas de sus características para ayudarnos a comprender los demás sistemas numéricos.\n\n"
+
+            "Sistema Decimal:\n"
+            "El sistema decimal se conoce también como sistema de base 10 ya que tiene 10 dígitos: 0 al 9. "
+            "Es un sistema de valor posicional. Si usamos sólo dos lugares decimales, podemos contar hasta 10^2 = 100 números distintos (0 a 99). "
+            "Con tres lugares, hasta 10^3 = 1000 (0 a 999). En general, con N dígitos podemos contar hasta 10^N - 1.\n\n"
+
+            "Sistema Binario:\n"
+            "Solo hay dos símbolos: 0 y 1. Es de base 2, y aunque requiere más dígitos, puede representar cualquier cantidad. "
+            "Un bit es un dígito binario. MSB (más significativo) está a la izquierda, LSB (menos significativo) a la derecha. "
+            "Ejemplo: 4 bits a la izquierda del punto binario y 3 a la derecha representan partes enteras y fraccionarias.\n\n"
+
+            "Sistema Hexadecimal:\n"
+            "Es un sistema de base 16. Usa dígitos del 0 al 9 y letras A a F, donde A=10 hasta F=15. "
+            "Muy usado en informática porque cada dígito hexadecimal representa 4 bits binarios."
         ),
     },
+
+
     "SistemasDigitalesyAnalógicos": {
         "title": "SistemasDigitalesyAnalógicos",
         "content": (
