@@ -1,8 +1,12 @@
+#Pendiente....
 import re
+
+#Importando libreria
 import tkinter as tk
 from tkinter import ttk, messagebox
-from PIL import Image, ImageTk  # Necesario para manejar imágenes
 
+# Importando PIL para manejar imágenes
+from PIL import Image, ImageTk
 
 # Sample data: topics and their content
 ENCYCLOPEDIA_DATA = {
@@ -37,7 +41,7 @@ ENCYCLOPEDIA_DATA = {
     "SISTEMAS": {
         "title": "Sistemas Digitales y Analógicos",
         "content": (
-               "Un sistema digital es la combinación de dispositivos diseñados para manipular información lógica o cantidades físicas que se representan en forma digital; es decir, las cantidades solo pueden tener valores discretos."
+            "Un sistema digital es la combinación de dispositivos diseñados para manipular información lógica o cantidades físicas que se representan en forma digital; es decir, las cantidades solo pueden tener valores discretos."
             "Estos dispositivos, por lo general, son electrónicos, pero también pueden ser mecánicos, magnétivos o neumáticos. Algunos de los sistemas digitales más comunes son las computadoras y las calculadoras digitales, los equipos de audio y video digital y el sistema telefónico."
             "Un sistema analógico contiene dispositivos que manipulan cantidades físicas que se representan en forma analógica."
             "En un sistema analógico, las cantidades pueden variar sobre un intervalo continuo de valores."
@@ -53,7 +57,6 @@ ENCYCLOPEDIA_DATA = {
             "EL sistema decimal se conoce también como sistema de base 10 ya que tiene 10 dígitos y ha evolucionado en forma natural debido al hecho de que las personas tenemos 10 dedos."
             "EL decimal es un sistema de valor posicional, en el cual el valor de un dígito depende de su posición."
             "Dicho de forma rigurosa, las diversas posiciones relaticas al punto decimal llevan pesos que pueden expresarse como potencias de 10."
-            ""
             "Conteo Decimal"
             "Al contar en el sistema decimal, empezamos con 0 en la posición de las unidades y tomamos cada símbolo (dígito) en forma progresiva hasta llegar al 9."
             "Luego agregamos un 1 a la siguiente posición más alta y empezamos de nuevo con 0 en la primera posición."
@@ -69,7 +72,6 @@ ENCYCLOPEDIA_DATA = {
             "Por otro lado, es muy sencillo diseñar circuitos electrónicos simples y rpecisos que operen solo con dos niveles de voltaje."
             "Por esta razón casi cualquier sistema digital utiliza el sistema numérico binario como el sistema básico de sus operaciones."
             "En el sistema binario solo hay dos posibles valores de dígitos: 0 y 1."
-            ""
             "Conteo Binario"
             "Por lo general, al tratarse de números binarios, nos restringimos a un número específico de bits."
             "Comenzando con todos los bits en cero, conocido como cuenta cero."
@@ -109,6 +111,7 @@ ENCYCLOPEDIA_DATA = {
 
 
 class EncartaApp(tk.Tk):
+    # Constructor method. Se llama automaticamente cuando creamos una instancia de la clase.
     def __init__(self):
         super().__init__()
         self.title("ARCHI: Asistente Virtual")
@@ -116,6 +119,8 @@ class EncartaApp(tk.Tk):
 
         self.main_frame = None
         self.search_frame = None
+        
+        # Llama al método para mostrar el menú principal
         self.show_main_menu()
 
     def show_main_menu(self):
@@ -129,7 +134,7 @@ class EncartaApp(tk.Tk):
 
         # Imagen centrada
         self.image = Image.open("sample_image.png")
-        #self.image = self.image.resize((200, 200), Image.ANTIALIAS)
+        #self.image = self.image.resize((200, 200), Image.ANTIALIAS) #NO FUNCIONA
         self.photo = ImageTk.PhotoImage(self.image)
         self.image_label = ttk.Label(self.main_frame, image=self.photo)
         self.image_label.pack(pady=10)
@@ -173,7 +178,8 @@ class EncartaApp(tk.Tk):
         paned = ttk.Panedwindow(self.search_frame, orient=tk.HORIZONTAL)
         paned.pack(fill=tk.BOTH, expand=True)
 
-        nav_frame = ttk.Frame(paned, width=200)
+        nav_frame = ttk.Frame(paned, width=200) #Tamaño de la barra lateral
+        nav_frame.pack(fill=tk.Y, padx=5, pady=5)
         paned.add(nav_frame, weight=1)
 
         ttk.Label(nav_frame, text="Buscar:").pack(padx=5, pady=(5, 0), anchor=tk.W)
@@ -203,27 +209,11 @@ class EncartaApp(tk.Tk):
         scrollbar = ttk.Scrollbar(text_container, orient=tk.VERTICAL, command=self.content_text.yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.content_text.config(yscrollcommand=scrollbar.set)
-
-    def show_topic(self, *topics):  # <-- MOVE THIS INSIDE THE CLASS
-        self.show_search_page()
-        combined_title = " + ".join([ENCYCLOPEDIA_DATA[t]['title'] for t in topics if t in ENCYCLOPEDIA_DATA])
-        self.search_var.set("")  # Clear search
-        self.update_list()
-        self.title_label.config(text=combined_title)
+    
+    def insert_content_with_images(self, content):
         self.content_text.delete(1.0, tk.END)
-
-        # Remove any previous image label widget if present
-        if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
-            self.topic_image_label.destroy()
-
-        # Store references to images to prevent garbage collection
         self._text_images = []
-
-        # Combine all content
-        combined_content = "\n\n".join([ENCYCLOPEDIA_DATA[t]['content'] for t in topics if t in ENCYCLOPEDIA_DATA])
-
-        # Regex to find [IMAGE:filename]
-        parts = re.split(r'(\[IMAGE:.*?\])', combined_content)
+        parts = re.split(r'(\[IMAGE:.*?\])', content)
         for part in parts:
             match = re.match(r'\[IMAGE:(.*?)\]', part)
             if match:
@@ -239,7 +229,29 @@ class EncartaApp(tk.Tk):
                     self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n")
             else:
                 self.content_text.insert(tk.END, part)
-    
+
+    def show_topic(self, *topics):
+        self.show_search_page()
+        combined_title = "TITULO: PENDIENTE"#" + ".join([ENCYCLOPEDIA_DATA[t]['title'] for t in topics if t in ENCYCLOPEDIA_DATA])
+        self.search_var.set("")  # Clear search
+        self.update_list()
+        self.title_label.config(text=combined_title)
+        # Combine all content
+        combined_content = "\n\n".join([ENCYCLOPEDIA_DATA[t]['content'] for t in topics if t in ENCYCLOPEDIA_DATA])
+        self.insert_content_with_images(combined_content)
+
+    def display_topic(self, event=None):
+        selection = self.topic_list.curselection()
+        if not selection:
+            return
+        topic = self.topic_list.get(selection[0])
+        data = ENCYCLOPEDIA_DATA.get(topic)
+        if data:
+            self.title_label.config(text=data['title'])
+            self.insert_content_with_images(data['content'])
+        else:
+            messagebox.showerror("Error", f"No se encontró información para '{topic}'.")
+ 
     def populate_list(self):
         self.topic_list.delete(0, tk.END)
         for topic in sorted(ENCYCLOPEDIA_DATA.keys()):
@@ -252,42 +264,11 @@ class EncartaApp(tk.Tk):
         for topic in sorted(filtered):
             self.topic_list.insert(tk.END, topic)
 
-    def display_topic(self, event=None):
-        selection = self.topic_list.curselection()
-        if not selection:
-            return
-        topic = self.topic_list.get(selection[0])
-        data = ENCYCLOPEDIA_DATA.get(topic)
-        if data:
-            self.title_label.config(text=data['title'])
-            self.content_text.delete(1.0, tk.END)
-            self.content_text.insert(tk.END, data['content'])
 
-            # Si existe un Label (imagen) para el tema, mostrarla
-            if 'Label' in data:
-                try:
-                    image_path = data['Label']
-                    img = Image.open(image_path)
-                    img = img.resize((500, 400))
-                    self.topic_photo = ImageTk.PhotoImage(img)
 
-                    # Si ya existe una imagen previa, eliminarla
-                    if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
-                        self.topic_image_label.destroy()
 
-                    # Crear y mostrar imagen nueva
-                    self.topic_image_label = ttk.Label(self.search_frame, image=self.topic_photo)
-                    self.topic_image_label.pack(pady=10)
 
-                except Exception as e:
-                    messagebox.showwarning("Imagen no encontrada", f"No se pudo cargar la imagen: {e}")
-            else:
-                # Si no hay imagen para el tema, eliminar la previa si existe
-                if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
-                    self.topic_image_label.destroy()
-        else:
-            messagebox.showerror("Error", f"No se encontró información para '{topic}'.")
-
+# Bucle princiipal
 if __name__ == '__main__':
     app = EncartaApp()
-    app.mainloop()
+    app.mainloop() # Funcion elemental para la ventana principal
