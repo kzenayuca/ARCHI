@@ -234,6 +234,9 @@ ENCYCLOPEDIA_DATA = {
             "- T (Toggle): Cambia de estado si T=1 en el flanco de CLK.\n "
             "Aplicación: Registros, contadores, y memoria caché. \n\n"
 
+            "\n[IMAGE:Imagenes/ff-sr-negativo.jpeg\n"
+            "\n[IMAGE:Imagenes/ff-sr-positivo.jpeg\n"
+            
             "REGISTROS \n"
             "Son pequeñas memorias dentro de la CPU para almacenar datos temporalmente. "
             "Un registro es un conjunto de flip-flops (bistables) que almacena un conjunto de bits."
@@ -334,6 +337,8 @@ ENCYCLOPEDIA_DATA = {
             "Limitaciones en computación:\n" +
             "- Ineficiente para hardware digital (requiere conversión a binario).\n\n"
 
+            "\n[IMAGE:Imagenes/sistema-decimal.jpeg]\n"
+            
             "Sistema Binario:\n"
             "Solo hay dos símbolos: 0 y 1. Es de base 2, y aunque requiere más dígitos, puede representar cualquier cantidad. "
             "Lenguaje nativo de las computadoras y sistemas digitales. "
@@ -344,6 +349,7 @@ ENCYCLOPEDIA_DATA = {
             "Casos de Uso:\n" +
             "- Máscaras de red (IPv4).\n" +
             "- Permisos en sistemas UNIX (chmod).\n\n"
+            "\n[IMAGE:Imagenes/sistema-binario.jpeg]\n"
 
             "Sistema Hexadecimal:\n"
             "Es un sistema de base 16. Usa dígitos del 0 al 9 y letras A a F, donde A=10 hasta F=15. "
@@ -354,6 +360,9 @@ ENCYCLOPEDIA_DATA = {
             "Aplicaciones críticas:\n" +
             "- Direcciones de memoria (`0xFFFF`).\n" +
             "- Representación de colores (HTML/CSS: `#FF5733`).\n\n"
+            "\n[IMAGE:Imagenes/sistema-hexadecimal.jpeg]\n"
+            
+            "\n[IMAGE:Imagenes/sistema-octal.jpeg]\n"
 
             "Binario a Decimal:\n" +
             "Sumar pesos de cada bit activo (1).\n" +
@@ -362,7 +371,7 @@ ENCYCLOPEDIA_DATA = {
             "División sucesiva entre 2 y leer residuos en orden inverso.\n" +
             "`13₁₀ → 13/2=6 residuo 1 → 6/2=3 residuo 0 → ... = 1101₂`"
 
-            "\n[IMAGE:Imagenes/binario-a-decimal.jpeg]\n"
+            "\n[IMAGE:Imagenes/conversion-binario-a-decimal.jpeg]\n"
             
             "Binario a Hexadecimal:\n" +
             "Agrupar bits de 4 en 4 (de derecha a izquierda).\n" +
@@ -379,7 +388,7 @@ ENCYCLOPEDIA_DATA = {
             "- Rango con 8 bits: -128 a +127 (Complemento a 2).\n" +
             "Ejemplo : `-5₁₀ → 1111 1011₂` (8 bits).\n\n"
             
-            "\n[IMAGE:Imagenes/binario-a-hexadecimal.jpeg]\n"
+            "\n[IMAGE:Imagenes/conversion-binario-a-hexadecimal.jpeg]\n"
 
 
             "Punto Flotante (IEEE 754)"
@@ -393,6 +402,8 @@ ENCYCLOPEDIA_DATA = {
             "- Exponente: 10000010₂ - 127 = 130 - 127 = 3\n" +
             "- Mantisa: 1.101₂ (implícito el 1)\n" +
             "- Valor: (-1)⁰ * 1.101₂ * 2³ = 1101₂ = 13₁₀\n\n"
+            
+            "\n[IMAGE:Imagenes/punto-flotante-ieee754.jpeg\n"
 
             "Operaciones Aritméticas en Binario:\n" +
             "Suma:\n" +
@@ -434,6 +445,8 @@ ENCYCLOPEDIA_DATA = {
             "Estos dispositivos generalmente son electrónicos, pero también pueden ser mecánicos, magnéticos o neumáticos. "
             "Los sistemas digitales más comunes incluyen computadoras, calculadoras digitales, equipos de audio y video digital, y el sistema telefónico (considerado el sistema digital más grande del mundo).\n\n"
             
+            "\n[IMAGE:Imagenes/sistemas-digitales.jpeg\n"
+            
             "Ventajas de los Sistemas Digitales:\n"
             "• Son más fáciles de diseñar debido a que utilizan circuitos de conmutación donde solo importa el intervalo (ALTO o BAJO) y no los valores exactos de voltaje o corriente\n"
             "• Facilitan el almacenamiento de información mediante dispositivos especiales que pueden almacenar miles de millones de bits en espacios físicos relativamente pequeños\n"
@@ -446,6 +459,8 @@ ENCYCLOPEDIA_DATA = {
             "Los sistemas analógicos contienen dispositivos que manipulan cantidades físicas representadas en forma analógica, donde las cantidades pueden variar sobre un intervalo continuo de valores. "
             "Por ejemplo, la amplitud de señal de salida en un receptor de radio puede tener cualquier valor entre cero y su límite máximo. "
             "Sistemas analógicos comunes incluyen amplificadores de audio, equipos de grabación y reproducción de cintas magnéticas, e interruptores reguladores de luz.\n\n"
+            
+            "\n[IMAGE:Imagenes/sistemas-analogicos.jpeg] \n"
             
             "Ventajas de los Sistemas Analógicos:\n"
             "• Pueden representar variaciones continuas de manera más natural y precisa\n"
