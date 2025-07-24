@@ -1662,9 +1662,14 @@ class EncartaApp(tk.Tk):
         title = ttk.Label(self.main_frame, text="ARCHI", style="Title.TLabel")
         title.pack(pady=5)
 
+
         # Botones
         button_frame = ttk.Frame(self.main_frame)
         button_frame.pack(pady=20)
+
+        # Center columns in the grid
+        button_frame.columnconfigure(0, weight=1)
+        button_frame.columnconfigure(1, weight=1)
 
         buttons = [
             ("Buscar Temas", self.show_search_page),
@@ -1678,7 +1683,14 @@ class EncartaApp(tk.Tk):
         ]
 
         for i, (text, command) in enumerate(buttons):
-            btn = ttk.Button(button_frame, text=text, command=command, width=20)
+            btn = tk.Button(
+                button_frame,
+                text=text,
+                command=command,
+                width=24,
+                wraplength=180,  
+                justify="center"
+            )
             btn.grid(row=i // 2, column=i % 2, padx=15, pady=10, sticky="ew")
 
     def show_search_page(self):
@@ -1840,8 +1852,6 @@ class EncartaApp(tk.Tk):
         self.topic_list.delete(0, tk.END)
         for topic in sorted(filtered):
             self.topic_list.insert(tk.END, topic)
-
-
 
 
 
