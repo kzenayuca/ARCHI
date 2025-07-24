@@ -1,5 +1,6 @@
 #Pendiente....
 import re
+import webbrowser
 
 #Importando libreria
 import tkinter as tk
@@ -306,6 +307,7 @@ ENCYCLOPEDIA_DATA = {
             "- Mayor complejidad y costo: La arquitectura Harvard es más compleja de implementar y, por lo tanto, más costosa. \n" 
             "Ejemplo moderno: Microcontroladores como Arduino usan Harvard.\n"
         ),
+        "url": "https://wayground.com/admin/assessment/6881a3a742ac6dbdf316bdab?source=lesson_share"
     },
 
     "Sistemas_Numericos": {
@@ -409,6 +411,7 @@ ENCYCLOPEDIA_DATA = {
             "```\nCociente: 0010₂ (2₁₀)\nResto: 0011₂ (3₁₀)\n```\n" +
             "Alternativa: División no restauradora (más eficiente).\n\n"
         ),
+        "url": "https://wayground.com/admin/assessment/6881a42712a64a936957c59a?source=lesson_share"
     },
 
     "Sistemas_Digitales_Analogicos": {
@@ -467,6 +470,7 @@ ENCYCLOPEDIA_DATA = {
             "• Filtros Anti-Aliasing: Previenen la distorsión por frecuencias de muestreo inadecuadas\n"
             "• Amplificadores Operacionales: Componentes fundamentales para acondicionamiento de señales analógicas\n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881a755e8faf12874df707a?source=lesson_share"
     },
 
 
@@ -697,6 +701,7 @@ ENCYCLOPEDIA_DATA = {
             "3. `R1 ← ALU`\n"
             "Cada una de estas microoperaciones ocurre en un ciclo de reloj y es orquestada por señales de control.\n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881aedc882c169778fbdd1a?source=lesson_share"
     },
     "Arquitectura_De_Computadores": {
         "title": "Arquitectura de Computadores",
@@ -1131,6 +1136,7 @@ ENCYCLOPEDIA_DATA = {
             "- Homogéneos: Todos los cores iguales (Intel Core i7). \n"
             "- Heterogéneos: Cores especializados (ARM big.LITTLE). \n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881b201ba29416028b78db9?source=lesson_share"
     },
     "Assembler": {
         "title": "Lenguaje Ensamblador (Assembler)",
@@ -1610,6 +1616,7 @@ ENCYCLOPEDIA_DATA = {
             "  mov ebx, 7           ; Divisor\n"
             "  idiv ebx             ; EAX = -14, EDX = -2\n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881b47ed5e319aa5044d04a?source=lesson_share"
     },
 }
 
@@ -1773,6 +1780,16 @@ class EncartaApp(tk.Tk):
         combined_content = "\n\n".join([ENCYCLOPEDIA_DATA[t]['content'] for t in topics if t in ENCYCLOPEDIA_DATA])
         self.insert_content_with_images(combined_content)
 
+        # Si hay solo un topic y tiene url, agrega el botón
+        if len(topics) == 1:
+            topic = topics[0]
+            url = ENCYCLOPEDIA_DATA.get(topic, {}).get("url")
+            if url:
+                link_btn = ttk.Button(self.content_text, text="Quizz time!", style="TButton",
+                                    command=lambda: webbrowser.open(url))
+                self.content_text.window_create(tk.END, window=link_btn)
+                self.content_text.insert(tk.END, "\n")
+
     
     def show_microoperaciones(self):
         self.show_search_page()
@@ -1838,9 +1855,15 @@ class EncartaApp(tk.Tk):
         if data:
             self.title_label.config(text=data['title'])
             self.insert_content_with_images(data['content'])
+            url = data.get("url")
+            if url:
+                link_btn = ttk.Button(self.content_text, text="Ver más en Wikipedia", style="TButton",
+                                    command=lambda: webbrowser.open(url))
+                self.content_text.window_create(tk.END, window=link_btn)
+                self.content_text.insert(tk.END, "\n")
         else:
             messagebox.showerror("Error", f"No se encontró información para '{topic}'.")
- 
+        
     def populate_list(self):
         self.topic_list.delete(0, tk.END)
         for topic in sorted(ENCYCLOPEDIA_DATA.keys()):
