@@ -234,8 +234,8 @@ ENCYCLOPEDIA_DATA = {
             "- T (Toggle): Cambia de estado si T=1 en el flanco de CLK.\n "
             "Aplicación: Registros, contadores, y memoria caché. \n\n"
 
-            "\n[IMAGE:Imagenes/ff-sr-negativo.jpeg\n"
-            "\n[IMAGE:Imagenes/ff-sr-positivo.jpeg\n"
+            "\n[IMAGE:Imagenes/ff-sr-negativo.jpeg]\n"
+            "\n[IMAGE:Imagenes/ff-sr-positivo.jpeg]\n"
             
             "REGISTROS \n"
             "Son pequeñas memorias dentro de la CPU para almacenar datos temporalmente. "
@@ -403,7 +403,7 @@ ENCYCLOPEDIA_DATA = {
             "- Mantisa: 1.101₂ (implícito el 1)\n" +
             "- Valor: (-1)⁰ * 1.101₂ * 2³ = 1101₂ = 13₁₀\n\n"
             
-            "\n[IMAGE:Imagenes/punto-flotante-ieee754.jpeg\n"
+            "\n[IMAGE:Imagenes/punto-flotante-ieee754.jpeg]\n"
 
             "Operaciones Aritméticas en Binario:\n" +
             "Suma:\n" +
@@ -445,7 +445,7 @@ ENCYCLOPEDIA_DATA = {
             "Estos dispositivos generalmente son electrónicos, pero también pueden ser mecánicos, magnéticos o neumáticos. "
             "Los sistemas digitales más comunes incluyen computadoras, calculadoras digitales, equipos de audio y video digital, y el sistema telefónico (considerado el sistema digital más grande del mundo).\n\n"
             
-            "\n[IMAGE:Imagenes/sistemas-digitales.jpeg\n"
+            "\n[IMAGE:Imagenes/sistemas-digitales.jpeg]\n"
             
             "Ventajas de los Sistemas Digitales:\n"
             "• Son más fáciles de diseñar debido a que utilizan circuitos de conmutación donde solo importa el intervalo (ALTO o BAJO) y no los valores exactos de voltaje o corriente\n"
@@ -1652,7 +1652,7 @@ class EncartaApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("ARCHI: Asistente Virtual")
-        self.geometry("900x720")
+        self.geometry("900x680")
         self.configure(bg="#f0f0f0")  # Fondo más claro
 
         # Estilo visual general
@@ -1684,7 +1684,10 @@ class EncartaApp(tk.Tk):
         # Imagen centrada
         try:
             self.image = Image.open("Imagenes/interfaz-imagen.png")
-            self.image = self.image.resize((383, 256))
+            desired_height = 230
+            w, h = self.image.size
+            new_width = int(w * (desired_height / h))
+            self.image = self.image.resize((new_width, desired_height), Image.LANCZOS)
             self.photo = ImageTk.PhotoImage(self.image)
             self.image_label = ttk.Label(self.main_frame, image=self.photo)
             self.image_label.pack(pady=10)
@@ -1776,10 +1779,14 @@ class EncartaApp(tk.Tk):
 
     # ... (el resto del código permanece igual, solo se mejora visual)
 
-    
     def insert_content_with_images(self, content):
+        self.content_text.config(state="normal")  # Habilitar para insertar contenido
         self.content_text.delete(1.0, tk.END)
         self._text_images = []
+
+        # Crear un tag para centrar
+        self.content_text.tag_configure("center", justify="center")
+
         parts = re.split(r'(\[IMAGE:.*?\])', content)
         for part in parts:
             match = re.match(r'\[IMAGE:(.*?)\]', part)
@@ -1787,15 +1794,24 @@ class EncartaApp(tk.Tk):
                 image_path = match.group(1).strip()
                 try:
                     img = Image.open(image_path)
-                    img = img.resize((400, 250))
+                    desired_height = 230
+                    w, h = img.size
+                    new_width = int(w * (desired_height / h))
+                    img = img.resize((new_width, desired_height), Image.LANCZOS)
                     photo = ImageTk.PhotoImage(img)
-                    self.content_text.image_create(tk.END, image=photo)
-                    self._text_images.append(photo)  # Prevent GC
+                    # Insertar salto de línea antes y después para centrar visualmente
                     self.content_text.insert(tk.END, '\n')
+                    self.content_text.image_create(tk.END, image=photo)
+                    self._text_images.append(photo)  # Evitar que la imagen se elimine por el recolector
+                    self.content_text.insert(tk.END, '\n')
+                    # Aplicar el tag de centrado a la imagen y líneas
+                    self.content_text.tag_add("center", "end-3l", "end-1l")
                 except Exception as e:
                     self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n")
             else:
                 self.content_text.insert(tk.END, part)
+
+        self.content_text.config(state="disabled")  # Deshabilitar edición
 
     def show_topic(self, *topics):
         self.show_search_page()
