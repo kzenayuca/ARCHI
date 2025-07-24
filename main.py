@@ -69,6 +69,7 @@ ENCYCLOPEDIA_DATA = {
             "Cada compuerta realiza una función lógica específica con una o más entradas y una salida.\n\n"
             
             "1. COMPUERTA AND (Y):\n"
+            "\n[IMAGE:Imagenes/compuerta-and.jpeg]\n"
             "• Función: Realiza la multiplicación lógica\n"
             "• Símbolo: Forma de D con entrada plana\n"
             "• Operación: Y = A · B\n"
@@ -97,6 +98,7 @@ ENCYCLOPEDIA_DATA = {
             "• Implementación: Transistores en paralelo\n\n"
             
             "3. COMPUERTA NOT (INVERSOR):\n"
+            "\n[IMAGE:Imagenes/compuerta-not.jpeg]\n"
             "• Función: Realiza la negación lógica\n"
             "• Símbolo: Triángulo con círculo pequeño en la salida\n"
             "• Operación: Y = Ā\n"
@@ -112,6 +114,7 @@ ENCYCLOPEDIA_DATA = {
             "Estas compuertas se forman combinando las compuertas básicas:\n\n"
             
             "4. COMPUERTA NAND (NO-Y):\n"
+            "\n[IMAGE:Imagenes/compuerta-nand.jpeg]\n"
             "• Función: AND seguida de NOT\n"
             "• Símbolo: Compuerta AND con círculo en la salida\n"
             "• Operación: Y = (A · B)‾ = Ā + B̄\n"
@@ -126,6 +129,7 @@ ENCYCLOPEDIA_DATA = {
             "• Aplicaciones: Construcción de otros tipos de compuertas, memorias\n\n"
             
             "5. COMPUERTA NOR (NO-O):\n"
+            "\n[IMAGE:Imagenes/compuerta-nor.jpeg]\n"
             "• Función: OR seguida de NOT\n"
             "• Símbolo: Compuerta OR con círculo en la salida\n"
             "• Operación: Y = (A + B)‾ = Ā · B̄\n"
@@ -139,6 +143,7 @@ ENCYCLOPEDIA_DATA = {
             "• Importancia: También es compuerta universal\n\n"
             
             "6. COMPUERTA XOR (OR EXCLUSIVO):\n"
+            "\n[IMAGE:Imagenes/compuerta-xor.jpeg]\n"
             "• Función: OR exclusivo\n"
             "• Símbolo: Compuerta OR con línea curva adicional en la entrada\n"
             "• Operación: Y = A ⊕ B = A·B̄ + Ā·B\n"
@@ -152,6 +157,7 @@ ENCYCLOPEDIA_DATA = {
             "• Aplicaciones: Sumadores binarios, detectores de paridad, comparadores\n\n"
             
             "7. COMPUERTA XNOR (NOR EXCLUSIVO):\n"
+            "\n[IMAGE:Imagenes/compuerta-xnor.jpeg]\n"
             "• Función: XOR seguida de NOT\n"
             "• Símbolo: XOR con círculo en la salida\n"
             "• Operación: Y = (A ⊕ B)‾ = A·B + Ā·B̄\n"
@@ -184,6 +190,7 @@ ENCYCLOPEDIA_DATA = {
             "6. Verificación y optimización\n\n"
 
             "Simplificación con Mapas de Karnaugh\n"
+            "\n[IMAGE:Imagenes/mapa-de-karnaugh.jpeg]\n"
             "Método gráfico para minimizar funciones lógicas. "
             "Pasos: "
             "1. Construir una tabla con celdas agrupadas en potencias de 2 (1, 2, 4, 8). \n"
@@ -355,6 +362,8 @@ ENCYCLOPEDIA_DATA = {
             "División sucesiva entre 2 y leer residuos en orden inverso.\n" +
             "`13₁₀ → 13/2=6 residuo 1 → 6/2=3 residuo 0 → ... = 1101₂`"
 
+            "\n[IMAGE:Imagenes/binario-a-decimal.jpeg]\n"
+            
             "Binario a Hexadecimal:\n" +
             "Agrupar bits de 4 en 4 (de derecha a izquierda).\n" +
             "`1100 1010₂ → CA₁₆`\n\n" +
@@ -369,6 +378,9 @@ ENCYCLOPEDIA_DATA = {
             "Uso en números negativos   :\n" +
             "- Rango con 8 bits: -128 a +127 (Complemento a 2).\n" +
             "Ejemplo : `-5₁₀ → 1111 1011₂` (8 bits).\n\n"
+            
+            "\n[IMAGE:Imagenes/binario-a-hexadecimal.jpeg]\n"
+
 
             "Punto Flotante (IEEE 754)"
             "Estructura:\n" +
@@ -1656,8 +1668,8 @@ class EncartaApp(tk.Tk):
 
         # Imagen centrada
         try:
-            self.image = Image.open("sample_image.png")
-            self.image = self.image.resize((180, 180))
+            self.image = Image.open("Imagenes/interfaz-imagen.png")
+            self.image = self.image.resize((383, 256))
             self.photo = ImageTk.PhotoImage(self.image)
             self.image_label = ttk.Label(self.main_frame, image=self.photo)
             self.image_label.pack(pady=10)
