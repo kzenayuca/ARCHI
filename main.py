@@ -1884,7 +1884,7 @@ class EncartaApp(tk.Tk):
             self.insert_content_with_images(data['content'])
             url = data.get("url")
             if url:
-                link_btn = ttk.Button(self.content_text, text="Ver más en Wikipedia", style="TButton",
+                link_btn = ttk.Button(self.content_text, text="Quizz time!", style="TButton",
                                     command=lambda: webbrowser.open(url))
                 self.content_text.window_create(tk.END, window=link_btn)
                 self.content_text.insert(tk.END, "\n")
