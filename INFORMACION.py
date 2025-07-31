@@ -1,10 +1,6 @@
-import tkinter as tk
-from tkinter import ttk, messagebox
-from PIL import Image, ImageTk  # Necesario para manejar imágenes
-
 # Sample data: topics and their content
 ENCYCLOPEDIA_DATA = {
-    "Electronica_Digital_y_Circuitos_Logicos": {
+    "  Electrónica digital y circuitos lógicos": {
         "title": "Electronica Digital y Circuitos Logicos",
         "content": (
             "ALGEBRA DE BOOLE:\n"
@@ -63,6 +59,7 @@ ENCYCLOPEDIA_DATA = {
             "Cada compuerta realiza una función lógica específica con una o más entradas y una salida.\n\n"
             
             "1. COMPUERTA AND (Y):\n"
+            "\n[IMAGE:Imagenes/compuerta-and.jpeg]\n"
             "• Función: Realiza la multiplicación lógica\n"
             "• Símbolo: Forma de D con entrada plana\n"
             "• Operación: Y = A · B\n"
@@ -91,6 +88,7 @@ ENCYCLOPEDIA_DATA = {
             "• Implementación: Transistores en paralelo\n\n"
             
             "3. COMPUERTA NOT (INVERSOR):\n"
+            "\n[IMAGE:Imagenes/compuerta-not.jpeg]\n"
             "• Función: Realiza la negación lógica\n"
             "• Símbolo: Triángulo con círculo pequeño en la salida\n"
             "• Operación: Y = Ā\n"
@@ -106,6 +104,7 @@ ENCYCLOPEDIA_DATA = {
             "Estas compuertas se forman combinando las compuertas básicas:\n\n"
             
             "4. COMPUERTA NAND (NO-Y):\n"
+            "\n[IMAGE:Imagenes/compuerta-nand.jpeg]\n"
             "• Función: AND seguida de NOT\n"
             "• Símbolo: Compuerta AND con círculo en la salida\n"
             "• Operación: Y = (A · B)‾ = Ā + B̄\n"
@@ -120,6 +119,7 @@ ENCYCLOPEDIA_DATA = {
             "• Aplicaciones: Construcción de otros tipos de compuertas, memorias\n\n"
             
             "5. COMPUERTA NOR (NO-O):\n"
+            "\n[IMAGE:Imagenes/compuerta-nor.jpeg]\n"
             "• Función: OR seguida de NOT\n"
             "• Símbolo: Compuerta OR con círculo en la salida\n"
             "• Operación: Y = (A + B)‾ = Ā · B̄\n"
@@ -133,6 +133,7 @@ ENCYCLOPEDIA_DATA = {
             "• Importancia: También es compuerta universal\n\n"
             
             "6. COMPUERTA XOR (OR EXCLUSIVO):\n"
+            "\n[IMAGE:Imagenes/compuerta-xor.jpeg]\n"
             "• Función: OR exclusivo\n"
             "• Símbolo: Compuerta OR con línea curva adicional en la entrada\n"
             "• Operación: Y = A ⊕ B = A·B̄ + Ā·B\n"
@@ -146,6 +147,7 @@ ENCYCLOPEDIA_DATA = {
             "• Aplicaciones: Sumadores binarios, detectores de paridad, comparadores\n\n"
             
             "7. COMPUERTA XNOR (NOR EXCLUSIVO):\n"
+            "\n[IMAGE:Imagenes/compuerta-xnor.jpeg]\n"
             "• Función: XOR seguida de NOT\n"
             "• Símbolo: XOR con círculo en la salida\n"
             "• Operación: Y = (A ⊕ B)‾ = A·B + Ā·B̄\n"
@@ -177,7 +179,8 @@ ENCYCLOPEDIA_DATA = {
             "5. Implementación del circuito con compuertas lógicas\n"
             "6. Verificación y optimización\n\n"
 
-            "Simplificación con Mapas de Karnaugh\n",
+            "Simplificación con Mapas de Karnaugh\n"
+            "\n[IMAGE:Imagenes/mapa-de-karnaugh.jpeg]\n"
             "Método gráfico para minimizar funciones lógicas. "
             "Pasos: "
             "1. Construir una tabla con celdas agrupadas en potencias de 2 (1, 2, 4, 8). \n"
@@ -189,7 +192,7 @@ ENCYCLOPEDIA_DATA = {
             "- Reduce errores humanos.\n "
             "- Útil para funciones con hasta 6 variables. \n\n"
 
-            "MULTIPLEXORES (MUX) y DEMULTIPLEXORES (DEMUX)\n",
+            "MULTIPLEXORES (MUX) y DEMULTIPLEXORES (DEMUX)\n"
             "Multiplexor (MUX): Selecciona una de varias entradas usando líneas de control. \n"
             "- Ejemplo: MUX 4:1 usa 2 bits de control (S0, S1) para elegir entre 4 entradas (D0-D3).\n " 
             "- Aplicación: Transmisión de datos en buses.\n " +
@@ -197,14 +200,14 @@ ENCYCLOPEDIA_DATA = {
             "- Ejemplo: DEMUX 1:4 envía la entrada a Y0-Y3 según S0-S1. \n" 
             "- Usado en decodificación de direcciones de memoria.\n\n "
 
-            "Decodificador BCD a 7 Segmentos \n",
+            "Decodificador BCD a 7 Segmentos \n"
             "Convierte un número BCD (4 bits) en señales para display de 7 segmentos. \n"
             "Funcionamiento: \n"
             "- Cada segmento (a-g) se activa según combinaciones BCD (ejemplo: '5' → a=0, b=1, c=1, d=1, e=0, f=1, g=1). \n"
             "- Circuito típico: IC 7447 (decodificador BCD a 7 segmentos con salidas activas en bajo).\n "
             "Ejemplo práctico: Calculadoras y relojes digitales. \n\n"
 
-            "ALU Básica (Unidad Aritmético-Lógica)\n",
+            "ALU Básica (Unidad Aritmético-Lógica)\n"
             "Componente central de la CPU para operaciones aritméticas y lógicas. "
             "Componentes: "
             "- Sumador completo: Realiza sumas binarias con acarreo (usado en operaciones ADD).\n "
@@ -212,7 +215,7 @@ ENCYCLOPEDIA_DATA = {
             "- Circuito lógico: Implementa AND, OR, NOT, etc.\n "
             "Ejemplo: ALU de 4 bits (SN74181) puede sumar, restar, AND, OR, etc. \n\n"
 
-            "Flip-Flops (Biestables)\n",
+            "Flip-Flops (Biestables)\n"
             "Dispositivos secuenciales que almacenan 1 bit. Requieren señal de reloj (CLK). "
             "Tipos: "
             "- SR (Set-Reset): S=1 pone Q=1; R=1 pone Q=0; S=R=1 prohibido.\n "
@@ -221,6 +224,9 @@ ENCYCLOPEDIA_DATA = {
             "- T (Toggle): Cambia de estado si T=1 en el flanco de CLK.\n "
             "Aplicación: Registros, contadores, y memoria caché. \n\n"
 
+            "\n[IMAGE:Imagenes/ff-sr-negativo.jpeg\n"
+            "\n[IMAGE:Imagenes/ff-sr-positivo.jpeg\n"
+            
             "REGISTROS \n"
             "Son pequeñas memorias dentro de la CPU para almacenar datos temporalmente. "
             "Un registro es un conjunto de flip-flops (bistables) que almacena un conjunto de bits."
@@ -248,7 +254,7 @@ ENCYCLOPEDIA_DATA = {
             "- Implementación de instrucciones de la CPU y operaciones aritméticas y lógicas.\n "
             "- Control del flujo de ejecución de programas.\n\n "
 
-            "CONTADORES\n",
+            "CONTADORES\n"
             "Circuitos que generan secuencias binarias en respuesta a pulsos de CLK. \n"
             "Tipos:\n "
             "- Asíncrono (Ripple): Flip-flops no sincronizados (ejemplo: 74HC93). \n"
@@ -260,7 +266,7 @@ ENCYCLOPEDIA_DATA = {
             "Contador de anillo: Crea una secuencia cíclica (ejemplo: 74HC590).\n "
             "Contador Johnson: Variante del contador de anillo con más eficiencia. \n\n"
 
-            "SRAM vs DRAM\n",
+            "SRAM vs DRAM\n"
             "SRAM (Static RAM):\n "
             "- Usa 6 transistores por bit (flip-flops). \n"
             "- Más rápida y cara (caché de CPU). \n"
@@ -270,7 +276,7 @@ ENCYCLOPEDIA_DATA = {
             "- Más lenta, densa y barata (RAM principal). \n"
             "- Necesita refresco periódico. \n\n"
 
-            "ROM, PROM, , EPROM, EEPROM\n",
+            "ROM, PROM, , EPROM, EEPROM\n"
             "ROM (Read-Only Memory): Programada en fábrica (ejemplo: BIOS antiguo).\n " 
             "Tipos de ROM:\n"
             "- ROM: No reprogramable, solo lectura. \n"
@@ -285,7 +291,7 @@ ENCYCLOPEDIA_DATA = {
             "- EEPROM: Borrable eléctricamente, reprogramable. \n"
             "Flash: Variante de EEPROM para alta densidad (USB, SSDs). \n\n"
 
-            "Arquitecturas de Memoria\n",
+            "Arquitecturas de Memoria\n"
             "Von Neumann:\n "
             "- Tanto los datos como las instrucciones se almacenan en la misma memoria. \n"
             "- Usada en la mayoría de las computadoras modernas (ejemplo: PC, laptops).\n "
@@ -301,9 +307,10 @@ ENCYCLOPEDIA_DATA = {
             "- Mayor complejidad y costo: La arquitectura Harvard es más compleja de implementar y, por lo tanto, más costosa. \n" 
             "Ejemplo moderno: Microcontroladores como Arduino usan Harvard.\n"
         ),
+        "url": "https://wayground.com/admin/assessment/6881a3a742ac6dbdf316bdab?source=lesson_share"
     },
 
-    "Sistemas_Numericos": {
+    "  Sistemas numéricos": {
         "title": "Sistemas Numéricos",
         "content": (
             "En la tecnología digital se utilizan muchos sistemas numéricos. Los más comunes son los siguientes: "
@@ -320,6 +327,8 @@ ENCYCLOPEDIA_DATA = {
             "Limitaciones en computación:\n" +
             "- Ineficiente para hardware digital (requiere conversión a binario).\n\n"
 
+            "\n[IMAGE:Imagenes/sistema-decimal.jpeg]\n"
+            
             "Sistema Binario:\n"
             "Solo hay dos símbolos: 0 y 1. Es de base 2, y aunque requiere más dígitos, puede representar cualquier cantidad. "
             "Lenguaje nativo de las computadoras y sistemas digitales. "
@@ -330,6 +339,7 @@ ENCYCLOPEDIA_DATA = {
             "Casos de Uso:\n" +
             "- Máscaras de red (IPv4).\n" +
             "- Permisos en sistemas UNIX (chmod).\n\n"
+            "\n[IMAGE:Imagenes/sistema-binario.jpeg]\n"
 
             "Sistema Hexadecimal:\n"
             "Es un sistema de base 16. Usa dígitos del 0 al 9 y letras A a F, donde A=10 hasta F=15. "
@@ -340,6 +350,9 @@ ENCYCLOPEDIA_DATA = {
             "Aplicaciones críticas:\n" +
             "- Direcciones de memoria (`0xFFFF`).\n" +
             "- Representación de colores (HTML/CSS: `#FF5733`).\n\n"
+            "\n[IMAGE:Imagenes/sistema-hexadecimal.jpeg]\n"
+            
+            "\n[IMAGE:Imagenes/sistema-octal.jpeg]\n"
 
             "Binario a Decimal:\n" +
             "Sumar pesos de cada bit activo (1).\n" +
@@ -348,6 +361,8 @@ ENCYCLOPEDIA_DATA = {
             "División sucesiva entre 2 y leer residuos en orden inverso.\n" +
             "`13₁₀ → 13/2=6 residuo 1 → 6/2=3 residuo 0 → ... = 1101₂`"
 
+            "\n[IMAGE:Imagenes/conversion-binario-a-decimal.jpeg]\n"
+            
             "Binario a Hexadecimal:\n" +
             "Agrupar bits de 4 en 4 (de derecha a izquierda).\n" +
             "`1100 1010₂ → CA₁₆`\n\n" +
@@ -362,8 +377,11 @@ ENCYCLOPEDIA_DATA = {
             "Uso en números negativos   :\n" +
             "- Rango con 8 bits: -128 a +127 (Complemento a 2).\n" +
             "Ejemplo : `-5₁₀ → 1111 1011₂` (8 bits).\n\n"
+            
+            "\n[IMAGE:Imagenes/conversion-binario-a-hexadecimal.jpeg]\n"
 
-            "Punto Flotante (IEEE 754)",
+
+            "Punto Flotante (IEEE 754)"
             "Estructura:\n" +
             "- Signo: 1 bit (0=positivo, 1=negativo).\n" +
             "- Exponente: Sesgado (ej. 8 bits en precisión simple).\n" +
@@ -374,6 +392,8 @@ ENCYCLOPEDIA_DATA = {
             "- Exponente: 10000010₂ - 127 = 130 - 127 = 3\n" +
             "- Mantisa: 1.101₂ (implícito el 1)\n" +
             "- Valor: (-1)⁰ * 1.101₂ * 2³ = 1101₂ = 13₁₀\n\n"
+            
+            "\n[IMAGE:Imagenes/punto-flotante-ieee754.jpeg\n"
 
             "Operaciones Aritméticas en Binario:\n" +
             "Suma:\n" +
@@ -404,15 +424,18 @@ ENCYCLOPEDIA_DATA = {
             "```\nCociente: 0010₂ (2₁₀)\nResto: 0011₂ (3₁₀)\n```\n" +
             "Alternativa: División no restauradora (más eficiente).\n\n"
         ),
+        "url": "https://wayground.com/admin/assessment/6881a42712a64a936957c59a?source=lesson_share"
     },
 
-    "Sistemas_Digitales_Analogicos": {
+    "  Sistemas digitales y sistemas analógicos": {
         "title": "Sistemas Digitales y Analógicos",
         "content": (
             "Sistemas Digitales:\n"
             "Los sistemas digitales son combinaciones de dispositivos diseñados para manipular información lógica o cantidades físicas representadas en forma digital, donde las cantidades solo pueden tener valores discretos. "
             "Estos dispositivos generalmente son electrónicos, pero también pueden ser mecánicos, magnéticos o neumáticos. "
             "Los sistemas digitales más comunes incluyen computadoras, calculadoras digitales, equipos de audio y video digital, y el sistema telefónico (considerado el sistema digital más grande del mundo).\n\n"
+            
+            "\n[IMAGE:Imagenes/sistemas-digitales.jpeg] \n"
             
             "Ventajas de los Sistemas Digitales:\n"
             "• Son más fáciles de diseñar debido a que utilizan circuitos de conmutación donde solo importa el intervalo (ALTO o BAJO) y no los valores exactos de voltaje o corriente\n"
@@ -426,6 +449,8 @@ ENCYCLOPEDIA_DATA = {
             "Los sistemas analógicos contienen dispositivos que manipulan cantidades físicas representadas en forma analógica, donde las cantidades pueden variar sobre un intervalo continuo de valores. "
             "Por ejemplo, la amplitud de señal de salida en un receptor de radio puede tener cualquier valor entre cero y su límite máximo. "
             "Sistemas analógicos comunes incluyen amplificadores de audio, equipos de grabación y reproducción de cintas magnéticas, e interruptores reguladores de luz.\n\n"
+            
+            "\n[IMAGE:Imagenes/sistemas-analogicos.jpeg] \n"
             
             "Ventajas de los Sistemas Analógicos:\n"
             "• Pueden representar variaciones continuas de manera más natural y precisa\n"
@@ -462,10 +487,11 @@ ENCYCLOPEDIA_DATA = {
             "• Filtros Anti-Aliasing: Previenen la distorsión por frecuencias de muestreo inadecuadas\n"
             "• Amplificadores Operacionales: Componentes fundamentales para acondicionamiento de señales analógicas\n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881a755e8faf12874df707a?source=lesson_share"
     },
 
 
-    "MicroOperaciones_Y_Nivel_RTL": {
+    "  Microoperaciones y nivel RTL": {
         "title": "Microoperaciones y Nivel RTL (Register Transfer Level)",
         "content": (
             "El Nivel RTL (Register Transfer Level) es un nivel de abstracción en el diseño de sistemas digitales que describe el comportamiento de un sistema en términos de transferencias de datos entre registros y las operaciones realizadas sobre estos datos. "
@@ -692,8 +718,9 @@ ENCYCLOPEDIA_DATA = {
             "3. `R1 ← ALU`\n"
             "Cada una de estas microoperaciones ocurre en un ciclo de reloj y es orquestada por señales de control.\n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881aedc882c169778fbdd1a?source=lesson_share"
     },
-    "Arquitectura_De_Computadores": {
+    "  Arquitectura de computadores": {
         "title": "Arquitectura de Computadores",
         "content": (
             "La arquitectura de computadores es la disciplina que estudia el diseño y organización de los sistemas de cómputo, "
@@ -1103,7 +1130,7 @@ ENCYCLOPEDIA_DATA = {
             "     - Índice + Desplazamiento\n"
             "     - Base + Índice + Desplazamiento\n\n"
         
-            "Arquitecturas Superscalares\n",
+            "Arquitecturas Superscalares\n"
             "Definición: Ejecutan múltiples instrucciones por ciclo usando unidades de ejecución paralelas. "
             "Requisitos: \n"
             "- Pipeline profundo.\n "
@@ -1114,7 +1141,7 @@ ENCYCLOPEDIA_DATA = {
             "- Dependencias de datos y control. \n"
             "- Complejidad de diseño.\n\n "
 
-            "Procesadores Multinúcleo\n",
+            "Procesadores Multinúcleo\n"
             "Concepto: Integrar múltiples CPUs (cores) en un solo chip.\n"
             "Ventajas: \n"
             "- Paralelismo real (threads simultáneos).\n "
@@ -1126,8 +1153,9 @@ ENCYCLOPEDIA_DATA = {
             "- Homogéneos: Todos los cores iguales (Intel Core i7). \n"
             "- Heterogéneos: Cores especializados (ARM big.LITTLE). \n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881b201ba29416028b78db9?source=lesson_share"
     },
-    "Assembler": {
+    "  Assembler": {
         "title": "Lenguaje Ensamblador (Assembler)",
         "content": (
             "El lenguaje ensamblador es un lenguaje de programación de bajo nivel que proporciona una "
@@ -1605,162 +1633,6 @@ ENCYCLOPEDIA_DATA = {
             "  mov ebx, 7           ; Divisor\n"
             "  idiv ebx             ; EAX = -14, EDX = -2\n\n"
         ),
+        "url" : "https://wayground.com/admin/assessment/6881b47ed5e319aa5044d04a?source=lesson_share"
     },
 }
-
-
-
-class EncartaApp(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("ARCHI: Asistente Virtual")
-        self.geometry("800x700")
-
-        self.main_frame = None
-        self.search_frame = None
-        self.show_main_menu()
-
-    def show_main_menu(self):
-        if self.search_frame:
-            self.search_frame.pack_forget()
-        if self.main_frame:
-            self.main_frame.pack_forget()
-
-        self.main_frame = ttk.Frame(self)
-        self.main_frame.pack(fill=tk.BOTH, expand=True)
-
-        # Imagen centrada
-        self.image = Image.open("sample_image.png")
-        #self.image = self.image.resize((200, 200), Image.ANTIALIAS)
-        self.photo = ImageTk.PhotoImage(self.image)
-        self.image_label = ttk.Label(self.main_frame, image=self.photo)
-        self.image_label.pack(pady=10)
-
-        # Título de la aplicación
-        title = ttk.Label(self.main_frame, text="ARCHI", font=(None, 20, 'bold'))
-        title.pack(pady=5)
-
-        # Botones de navegación
-        button_frame = ttk.Frame(self.main_frame)
-        button_frame.pack(pady=20)
-
-        buttons = [
-            ("Buscar Temas", self.show_search_page),
-            ("Concepto 1", lambda: self.show_topic("Electronica_Digital_y_Circuitos_Logicos")),
-            ("Concepto 2", lambda: self.show_topic("Sistemas_Numericos")),
-            ("Concepto 3", lambda: self.show_topic("Sistemas_Digitales_Analogicos")),
-            ("Micro-Operaciones", lambda: self.show_topic("MicroOperaciones_Y_Nivel_RTL")),
-            ("Arquitectua de Computadores", lambda: self.show_topic("Arquitectura_De_Computadores")),
-            ("Assembler", lambda: self.show_topic("Assembler")),
-            ("Salir", self.quit)
-        ]
-
-        for i, (text, command) in enumerate(buttons):
-            btn = ttk.Button(button_frame, text=text, command=command)
-            btn.grid(row=i // 2, column=i % 2, padx=10, pady=10)
-
-    def show_search_page(self):
-        if self.main_frame:
-            self.main_frame.pack_forget()
-        if self.search_frame:
-            self.search_frame.pack_forget()
-
-        self.search_frame = ttk.Frame(self)
-        self.search_frame.pack(fill=tk.BOTH, expand=True)
-
-        # Botón de regreso
-        back_button = ttk.Button(self.search_frame, text="← Volver al inicio", command=self.show_main_menu)
-        back_button.pack(anchor=tk.W, padx=10, pady=5)
-
-        paned = ttk.Panedwindow(self.search_frame, orient=tk.HORIZONTAL)
-        paned.pack(fill=tk.BOTH, expand=True)
-
-        nav_frame = ttk.Frame(paned, width=200)
-        paned.add(nav_frame, weight=1)
-
-        ttk.Label(nav_frame, text="Buscar:").pack(padx=5, pady=(5, 0), anchor=tk.W)
-        self.search_var = tk.StringVar()
-        search_entry = ttk.Entry(nav_frame, textvariable=self.search_var)
-        search_entry.pack(fill=tk.X, padx=5)
-        search_entry.bind('<KeyRelease>', self.update_list)
-
-        self.topic_list = tk.Listbox(nav_frame)
-        self.topic_list.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-        self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
-
-        self.populate_list()
-
-        content_frame = ttk.Frame(paned)
-        paned.add(content_frame, weight=4)
-
-        self.title_label = ttk.Label(content_frame, text="Seleccione un tema", font=(None, 16, 'bold'))
-        self.title_label.pack(pady=10)
-
-        text_container = ttk.Frame(content_frame)
-        text_container.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
-
-        self.content_text = tk.Text(text_container, wrap=tk.WORD)
-        self.content_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-        scrollbar = ttk.Scrollbar(text_container, orient=tk.VERTICAL, command=self.content_text.yview)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        self.content_text.config(yscrollcommand=scrollbar.set)
-
-    def show_topic(self, topic):
-        self.show_search_page()
-        self.search_var.set(topic)
-        self.update_list()
-        self.topic_list.selection_set(0)
-        self.display_topic()
-
-    def populate_list(self):
-        self.topic_list.delete(0, tk.END)
-        for topic in sorted(ENCYCLOPEDIA_DATA.keys()):
-            self.topic_list.insert(tk.END, topic)
-
-    def update_list(self, event=None):
-        query = self.search_var.get().lower()
-        filtered = [t for t in ENCYCLOPEDIA_DATA if query in t.lower()]
-        self.topic_list.delete(0, tk.END)
-        for topic in sorted(filtered):
-            self.topic_list.insert(tk.END, topic)
-
-    def display_topic(self, event=None):
-        selection = self.topic_list.curselection()
-        if not selection:
-            return
-        topic = self.topic_list.get(selection[0])
-        data = ENCYCLOPEDIA_DATA.get(topic)
-        if data:
-            self.title_label.config(text=data['title'])
-            self.content_text.delete(1.0, tk.END)
-            self.content_text.insert(tk.END, data['content'])
-
-            # Si existe un Label (imagen) para el tema, mostrarla
-            if 'Label' in data:
-                try:
-                    image_path = data['Label']
-                    img = Image.open(image_path)
-                    img = img.resize((500, 400))
-                    self.topic_photo = ImageTk.PhotoImage(img)
-
-                    # Si ya existe una imagen previa, eliminarla
-                    if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
-                        self.topic_image_label.destroy()
-
-                    # Crear y mostrar imagen nueva
-                    self.topic_image_label = ttk.Label(self.search_frame, image=self.topic_photo)
-                    self.topic_image_label.pack(pady=10)
-
-                except Exception as e:
-                    messagebox.showwarning("Imagen no encontrada", f"No se pudo cargar la imagen: {e}")
-            else:
-                # Si no hay imagen para el tema, eliminar la previa si existe
-                if hasattr(self, 'topic_image_label') and self.topic_image_label.winfo_exists():
-                    self.topic_image_label.destroy()
-        else:
-            messagebox.showerror("Error", f"No se encontró información para '{topic}'.")
-
-if __name__ == '__main__':
-    app = EncartaApp()
-    app.mainloop()
