@@ -36,7 +36,7 @@ class EncartaApp(ctk.CTk):
     def set_styles(self):
         ctk.set_appearance_mode("light")            # Options: "light", "dark", "system"
         ctk.set_default_color_theme("blue")
-        self.default_font = ctk.CTkFont(family="Arial", size=16, weight="bold")
+        self.default_font = ctk.CTkFont(family="Arial", size=16, weight="bold") 
 
 
 
@@ -89,7 +89,7 @@ class EncartaApp(ctk.CTk):
         center_inner.rowconfigure(4, weight=1)
 
         # Título: ARCHI
-        title = ctk.CTkLabel(center_inner, text="ARCHI", font=("Helvetica", 20, "bold"), text_color="#2c3e50")
+        title = ctk.CTkLabel(center_inner, text="ARCHI", font=("Helvetica", 40, "bold"), text_color="#2c3e50")
         title.grid(row=0, column=0, pady=30, padx=30)
 
         # Imagen centrada
