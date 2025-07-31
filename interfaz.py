@@ -134,10 +134,10 @@ class EncartaApp(ctk.CTk):
         self.show_search_page()
         self.search_var.set("")                                                 # Limpia la entrada de búsqueda
         self.update_list()
-        self.title_label.config(text="Microoperaciones")
+        self.title_label.configure(text="Microoperaciones")
 
         # Mostrar descripción e imágenes con insert_content_with_images
-        description = ENCYCLOPEDIA_DATA.get("  Microoperaciones y nivel RTL", {}).get("content", "")
+        description = ENCYCLOPEDIA_DATA.get("MicroOperaciones_Y_Nivel_RTL", {}).get("content", "")
         self.insert_content_with_images(description)
 
         self.micro_images = ["prueba1.jpeg", "prueba2.jpeg", "prueba3.jpeg"]    # Lista de slides
@@ -270,9 +270,15 @@ class EncartaApp(ctk.CTk):
 
     
     def insert_content_with_images(self, content):
-        self.content_text.config(state = "normal")                              # Visualizar el contenido
+        self.content_text.config(state="normal")
         self.content_text.delete(1.0, tk.END)
-        self._text_images = []                                                  # Almacena referencia a imágenes
+        self._text_images = []
+
+        # Configura el tag para padding lateral
+        self.content_text.tag_configure("padding", lmargin1=30, lmargin2=30, rmargin=30)  # Puedes ajustar los valores
+
+        # Padding superior
+        self.content_text.insert(tk.END, "\n\n", "padding")
 
         parts = re.split(r'(\[IMAGE:.*?\])', content)
         for part in parts:
@@ -284,15 +290,17 @@ class EncartaApp(ctk.CTk):
                     img = img.resize((400, 250))
                     photo = ImageTk.PhotoImage(img)
                     self.content_text.image_create(tk.END, image=photo)
-                    self._text_images.append(photo)                             # Prevent GC
-                    self.content_text.insert(tk.END, '\n')
+                    self._text_images.append(photo)
+                    self.content_text.insert(tk.END, '\n\n', "padding")  # Padding después de la imagen
                 except Exception as e:
-                    self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n")
+                    self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n\n", "padding")
                     print(f"Error al cargar la imagen {image_path}:{e}")
             else:
-                self.content_text.insert(tk.END, part)
+                self.content_text.insert(tk.END, part + "\n\n", "padding")  # Padding después del texto
 
-        self.content_text.config(state = "disabled")                            # Desabilitar edición del texto
+        # Padding inferior
+        self.content_text.insert(tk.END, "\n\n", "padding")
+        self.content_text.config(state="disabled")                           # Desabilitar edición del texto
 
 
 
@@ -342,7 +350,7 @@ class EncartaApp(ctk.CTk):
 
     def show_micro_image(self):
         # Limpia e inserta nuevamente el contenido
-        description = ENCYCLOPEDIA_DATA.get("Microoperaciones y nivel RTL", {}).get("content", "")
+        description = ENCYCLOPEDIA_DATA.get("MicroOperaciones_Y_Nivel_RTL", {}).get("content", "")
         self.content_text.config(state="normal")
         self.content_text.delete(1.0, tk.END)
         self.insert_content_with_images(description)
