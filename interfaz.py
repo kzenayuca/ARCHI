@@ -198,24 +198,6 @@ class EncartaApp(ctk.CTk):
 
         container = ctk.CTkFrame(self.search_frame, fg_color="transparent")     # Contenedor general para navegación y contenido
         container.pack(fill="both", expand=True)
-
-        # ==== Marco de navegación: izquierda ====
-        nav_frame = ctk.CTkFrame(container, width=220, fg_color="lightgreen")   # Lista de temas
-        nav_frame.pack(fill="y", side="left", padx=5, pady=5)
-
-        left_label = ctk.CTkLabel(nav_frame, text="Buscar:")
-        left_label.pack(padx=5, anchor="w")
-
-        self.search_var = ctk.StringVar()                                       # Barra de búsqueda
-        search_entry = ctk.CTkEntry(nav_frame, textvariable=self.search_var)
-        search_entry.pack(fill="x", padx=5, pady=5)
-        search_entry.bind('<KeyRelease>', self.update_list)                     # Autocompletado
-
-        self.topic_list = tk.Listbox(nav_frame, font=('Arial', 12), exportselection=False)
-        self.topic_list.pack(fill="both", expand=True, padx=5, pady=5)
-        self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
-        self.populate_list()                                                    
-
         # ==== Marco de contenidos: derecha ====
         content_frame = ctk.CTkFrame(container, fg_color="lightblue")
         content_frame.pack(side="left", fill="both", expand=True, padx=5, pady=5)
@@ -232,6 +214,222 @@ class EncartaApp(ctk.CTk):
         scrollbar = tk.Scrollbar(text_container, orient="vertical", command=self.content_text.yview)
         scrollbar.pack(side="right", fill="y")
         self.content_text.config(yscrollcommand=scrollbar.set)
+        # ==== Marco de navegación: izquierda ====
+        nav_frame = ctk.CTkFrame(
+            container, 
+            width=280,  # Aumenté el ancho para mejor usabilidad
+            corner_radius=10,
+            fg_color=("gray95", "gray15"),  # Color adaptativo al tema
+            border_width=1,
+            border_color=("gray80", "gray30")
+        )
+        nav_frame.pack(fill="y", side="left", padx=(10, 5), pady=10)
+        nav_frame.pack_propagate(False)  # Mantiene el ancho fijo
+
+        # Título del panel de navegación
+        nav_title = ctk.CTkLabel(
+            nav_frame, 
+            text="📚 Navegación",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=("gray20", "gray80")
+        )
+        nav_title.pack(pady=(15, 10), padx=15, anchor="w")
+
+        # Separador visual
+        separator = ctk.CTkFrame(nav_frame, height=2, fg_color=("gray70", "gray40"))
+        separator.pack(fill="x", padx=15, pady=(0, 15))
+
+        # Marco para la búsqueda
+        search_frame = ctk.CTkFrame(nav_frame, fg_color="transparent")
+        search_frame.pack(fill="x", padx=15, pady=(0, 10))
+
+        # Etiqueta de búsqueda con icono
+        search_label = ctk.CTkLabel(
+            search_frame,
+            text="🔍 Buscar tema:",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=("gray30", "gray70"),
+            anchor="w"
+        )
+        search_label.pack(fill="x", pady=(0, 8))
+
+        # Variable y entrada de búsqueda
+        self.search_var = ctk.StringVar()
+        search_entry = ctk.CTkEntry(
+            search_frame,
+            textvariable=self.search_var,
+            placeholder_text="Escribe para buscar...",
+            height=35,
+            corner_radius=8,
+            border_width=2,
+            border_color=("gray60", "gray50"),
+            fg_color=("white", "gray20"),
+            text_color=("gray10", "gray90"),
+            placeholder_text_color=("gray50", "gray60"),
+            font=ctk.CTkFont(size=12)
+        )
+        search_entry.pack(fill="x", pady=(0, 5))
+        search_entry.bind('<KeyRelease>', self.update_list)
+
+        # Contador de resultados
+        self.results_label = ctk.CTkLabel(
+            search_frame,
+            text="",
+            font=ctk.CTkFont(size=10),
+            text_color=("gray50", "gray60"),
+            anchor="w"
+        )
+        self.results_label.pack(fill="x", pady=(2, 0))
+
+        # Marco para la lista de temas
+        list_frame = ctk.CTkFrame(nav_frame, fg_color="transparent")
+        list_frame.pack(fill="both", expand=True, padx=15, pady=(5, 15))
+
+        # Etiqueta de la lista
+        list_label = ctk.CTkLabel(
+            list_frame,
+            text="📋 Temas disponibles:",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=("gray30", "gray70"),
+            anchor="w"
+        )
+        list_label.pack(fill="x", pady=(0, 8))
+
+        # Marco contenedor para la lista y scrollbar
+        listbox_container = ctk.CTkFrame(list_frame, fg_color="transparent")
+        listbox_container.pack(fill="both", expand=True)
+
+        # Lista de temas mejorada
+        self.topic_list = tk.Listbox(
+            listbox_container,
+            font=('Segoe UI', 11),
+            exportselection=False,
+            selectmode=tk.SINGLE,
+            bg="white" if ctk.get_appearance_mode() == "Light" else "#2b2b2b",
+            fg="black" if ctk.get_appearance_mode() == "Light" else "white",
+            selectbackground="#0078d4",
+            selectforeground="white",
+            highlightthickness=0,
+            borderwidth=1,
+            relief="solid",
+            bd=1,
+            activestyle="none",
+            cursor="hand2"
+        )
+        self.topic_list.pack(side="left", fill="both", expand=True)
+
+        # Scrollbar personalizada para la lista
+        scrollbar = ctk.CTkScrollbar(
+            listbox_container,
+            orientation="vertical",
+            command=self.topic_list.yview,
+            width=16
+        )
+        scrollbar.pack(side="right", fill="y", padx=(2, 0))
+        self.topic_list.config(yscrollcommand=scrollbar.set)
+
+        # Eventos
+        self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
+        self.topic_list.bind('<Double-Button-1>', self.on_topic_double_click)  # Doble clic
+        self.topic_list.bind('<Return>', self.on_topic_enter)  # Enter key
+        self.topic_list.bind('<FocusIn>', self.on_list_focus_in)
+        self.topic_list.bind('<FocusOut>', self.on_list_focus_out)
+
+        # Botones de acción (opcional)
+        action_frame = ctk.CTkFrame(nav_frame, fg_color="transparent")
+        action_frame.pack(fill="x", padx=15, pady=(5, 10))
+
+        # Botón para limpiar búsqueda
+        clear_btn = ctk.CTkButton(
+            action_frame,
+            text="🗑️ Limpiar",
+            width=80,
+            height=28,
+            corner_radius=6,
+            fg_color=("gray70", "gray40"),
+            hover_color=("gray60", "gray50"),
+            text_color=("gray20", "gray80"),
+            font=ctk.CTkFont(size=10),
+            command=self.clear_search
+        )
+        clear_btn.pack(side="left", pady=2)
+
+        # Botón para actualizar lista
+        refresh_btn = ctk.CTkButton(
+            action_frame,
+            text="🔄 Actualizar",
+            width=100,
+            height=28,
+            corner_radius=6,
+            fg_color=("gray70", "gray40"),
+            hover_color=("gray60", "gray50"),
+            text_color=("gray20", "gray80"),
+            font=ctk.CTkFont(size=10),
+            command=self.refresh_list
+        )
+        refresh_btn.pack(side="right", pady=2)
+
+        # Inicializar la lista
+        self.populate_list()
+
+    # Métodos adicionales que necesitarás implementar:
+    def update_list(self, event=None):
+        """Actualiza la lista basada en el texto de búsqueda"""
+        search_text = self.search_var.get().lower()
+        
+        # Limpiar lista actual
+        self.topic_list.delete(0, tk.END)
+        
+        # Filtrar y mostrar elementos
+        filtered_items = []
+        for item in self.all_topics:  # Asume que tienes una lista completa
+            if search_text in item.lower():
+                filtered_items.append(item)
+                self.topic_list.insert(tk.END, item)
+        
+        # Actualizar contador de resultados
+        count = len(filtered_items)
+        if search_text:
+            self.results_label.configure(text=f"{count} resultado(s) encontrado(s)")
+        else:
+            self.results_label.configure(text="")
+        
+        # Seleccionar el primer elemento si hay coincidencias
+        if count > 0:
+            self.topic_list.selection_set(0)
+
+    def clear_search(self):
+        """Limpia la búsqueda y muestra todos los elementos"""
+        self.search_var.set("")
+        self.populate_list()
+        self.results_label.configure(text="")
+
+    def refresh_list(self):
+        """Actualiza la lista de temas"""
+        self.populate_list()
+        self.results_label.configure(text="Lista actualizada")
+        # Limpiar el mensaje después de 2 segundos
+        self.after(2000, lambda: self.results_label.configure(text=""))
+
+    def on_topic_double_click(self, event):
+        """Maneja el doble clic en un tema"""
+        self.display_topic(event)
+        # Aquí puedes agregar funcionalidad adicional para doble clic
+
+    def on_topic_enter(self, event):
+        """Maneja la tecla Enter en la lista"""
+        self.display_topic(event)
+
+    def on_list_focus_in(self, event):
+        """Cuando la lista obtiene el foco"""
+        if self.topic_list.size() > 0 and not self.topic_list.curselection():
+            self.topic_list.selection_set(0)
+
+    def on_list_focus_out(self, event):
+        """Cuando la lista pierde el foco"""
+        pass  # Puedes agregar funcionalidad aquí si es necesario                                            
+
+
 
 
 
