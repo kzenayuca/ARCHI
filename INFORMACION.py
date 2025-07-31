@@ -10,6 +10,7 @@ ENCYCLOPEDIA_DATA = {
             "Las operaciones básicas son AND (conjunción), OR (disyunción) y NOT (negación). "
             "Estas operaciones se pueden combinar para formar expresiones más complejas. "
             "Este es el fundamento matemático para el diseño de circuitos digitales. Define operaciones lógicas con variables binarias (0 y 1).\n\n "
+            
             "[SUBTITLE]Postulados básicos:[/SUBTITLE]\n"
             "• [BOLD]Postulado 1:[/BOLD] Si A ≠ 0, entonces A = 1; Si A ≠ 1, entonces A = 0\n"
             "• [BOLD]Postulado 2:[/BOLD] 0 · 0 = 0, 1 + 1 = 1\n"
@@ -74,6 +75,7 @@ ENCYCLOPEDIA_DATA = {
             "• [BOLD]Implementación:[/BOLD] Transistores en serie (lógica TTL) o CMOS\n\n"
 
             "[SUBTITLE]2. COMPUERTA OR (O):[/SUBTITLE]\n"
+            "\n[IMAGE:Imagenes/compuerta-or.jpeg]\n"
             "• [BOLD]Función:[/BOLD] Realiza la suma lógica\n"
             "• [BOLD]Símbolo:[/BOLD] Forma curva cóncava\n"
             "• [BOLD]Operación:[/BOLD] Y = A + B\n"
@@ -180,7 +182,9 @@ ENCYCLOPEDIA_DATA = {
             "6. Verificación y optimización\n\n"
 
             "[SUBTITLE]Simplificación con Mapas de Karnaugh\n[/SUBTITLE]"
+            "\n"
             "\n[IMAGE:Imagenes/mapa-de-karnaugh.jpeg]\n"
+            "\n"
             "[BOLD]Método gráfico para minimizar funciones lógicas.[/BOLD] "
             "Pasos: "
             "1. Construir una tabla con celdas agrupadas en potencias de 2 (1, 2, 4, 8). \n"
@@ -199,9 +203,12 @@ ENCYCLOPEDIA_DATA = {
             "[BOLD]Demultiplexor (DEMUX):[/BOLD] Distribuye una entrada a una de varias salidas.\n " 
             "- Ejemplo: DEMUX 1:4 envía la entrada a Y0-Y3 según S0-S1. \n" 
             "- Usado en decodificación de direcciones de memoria.\n\n "
-
+            "\n"
+            "[IMAGE:Imagenes/mux-y-demux.jpeg]"
+            "\n"
             "[SUBTITLE]Decodificador BCD a 7 Segmentos[/SUBTITLE] \n"
             "Convierte un número BCD (4 bits) en señales para display de 7 segmentos. \n"
+            "\n[IMAGE:Imagenes/decodificador-bcd-a-7-segmentos.jpeg]\n"
             "[BOLD]Funcionamiento:[/BOLD] \n"
             "- Cada segmento (a-g) se activa según combinaciones BCD (ejemplo: '5' → a=0, b=1, c=1, d=1, e=0, f=1, g=1). \n"
             "- Circuito típico: IC 7447 (decodificador BCD a 7 segmentos con salidas activas en bajo).\n "
@@ -224,14 +231,17 @@ ENCYCLOPEDIA_DATA = {
             "- T (Toggle): Cambia de estado si T=1 en el flanco de CLK.\n "
             "[BOLD]Aplicación:[/BOLD] Registros, contadores, y memoria caché. \n\n"
 
-            "\n[IMAGE:Imagenes/ff-sr-negativo.jpeg\n"
-            "\n[IMAGE:Imagenes/ff-sr-positivo.jpeg\n"
+            "\n[IMAGE:Imagenes/ff-sr-negativo.jpeg]\n"
+            "\n[IMAGE:Imagenes/ff-sr-positivo.jpeg]\n"
+            "\n[IMAGE:Imagenes/ff-jk-negativo.jpeg]\n"
+            "\n[IMAGE:Imagenes/ff-jk-positivo.jpeg]\n"
 
             "[SUBTITLE]REGISTROS[/SUBTITLE]\n"
             "Son pequeñas memorias dentro de la CPU para almacenar datos temporalmente. "
             "Un registro es un conjunto de flip-flops (bistables) que almacena un conjunto de bits."
             "Generalmente, los registros están contenidos dentro de la unidad central de procesamiento (CPU) o en dispositivos periféricos."
             "Se utilizan para almacenar datos temporalmente durante el procesamiento.\n"
+
             "[BOLD]Características:[/BOLD] "
             "- Tamaño: Varía según la arquitectura (ej. 8, 16, 32, 64 bits).\n "
             "- Velocidad: Acceso rápido comparado con memoria RAM.\n "
@@ -316,7 +326,7 @@ ENCYCLOPEDIA_DATA = {
             "En la tecnología digital se utilizan muchos sistemas numéricos. Los más comunes son los siguientes: "
             "decimal, binario, octal y hexadecimal. Siendo el sistema decimal el más conocido, de uso diario. "
             "Analicemos algunas de sus características para ayudarnos a comprender los demás sistemas numéricos.\n\n"
-
+            "[IMAGE:Imagenes/sistemas-de-numeracion.jpeg]"
             "[SUBTITLE]Sistema Decimal:[/SUBTITLE]\n"
             "El sistema decimal se conoce también como sistema de base 10 ya que tiene 10 dígitos: 0 al 9. "
             "Es un sistema de valor posicional. Si usamos sólo dos lugares decimales, podemos contar hasta 10^2 = 100 números distintos (0 a 99). "
@@ -362,14 +372,17 @@ ENCYCLOPEDIA_DATA = {
             "`13₁₀ → 13/2=6 residuo 1 → 6/2=3 residuo 0 → ... = 1101₂`"
 
             "\n[IMAGE:Imagenes/conversion-binario-a-decimal.jpeg]\n"
+            "\n[IMAGE:Imagenes/conversion-decimal-a-binario.jpeg]\n"
 
             "[SUBTITLE]Binario a Hexadecimal:[/SUBTITLE]\n" +
             "Agrupar bits de 4 en 4 (de derecha a izquierda).\n" +
             "`1100 1010₂ → CA₁₆`\n\n" +
+
+            "\n[IMAGE:Imagenes/conversion-binario-a-hexadecimal.jpeg]\n"
+
             "[SUBTITLE]Hexadecimal a Binario:[/SUBTITLE]\n" +
             "Reemplazar cada dígito hex por sus 4 bits equivalentes.\n" +
             "`F3₁₆ → 1111 0011₂`\n\n"
-
             "[BOLD]Complemento a 1:[/BOLD]\n" +
             "Invertir todos los bits (`0101 → 1010`).\n" +
             "[BOLD]Complemento a 2:[/BOLD]\n" +
@@ -378,7 +391,7 @@ ENCYCLOPEDIA_DATA = {
             "- Rango con 8 bits: -128 a +127 (Complemento a 2).\n" +
             "[BOLD]Ejemplo :[/BOLD]`-5₁₀ → 1111 1011₂` (8 bits).\n\n"
 
-            "\n[IMAGE:Imagenes/conversion-binario-a-hexadecimal.jpeg]\n"
+            "\n[IMAGE:Imagenes/conversion-hexadecimal-a-binario.jpeg]\n"
 
 
             "[SUBTITLE]Punto Flotante (IEEE 754)[/SUBTITLE]\n"
@@ -393,7 +406,7 @@ ENCYCLOPEDIA_DATA = {
             "- Mantisa: 1.101₂ (implícito el 1)\n" +
             "- Valor: (-1)⁰ * 1.101₂ * 2³ = 1101₂ = 13₁₀\n\n"
             
-            "\n[IMAGE:Imagenes/punto-flotante-ieee754.jpeg\n"
+            "\n[IMAGE:Imagenes/punto-flotante-ieee754.jpeg]\n"
 
             "[SUBTITLE]Operaciones Aritméticas en Binario:[/SUBTITLE]\n" +
             "[BOLD]Suma:[/BOLD]\n" +
@@ -573,13 +586,13 @@ ENCYCLOPEDIA_DATA = {
             "Las operaciones de transferencia mueven datos entre registros sin modificar su contenido. "
             "Son las microoperaciones más básicas y fundamentales:\n\n"
             
-            "• [BOLD]MOV R1, R2: Transfiere el contenido del registro R2 al registro R1\n[/BOLD]"
+            "• [BOLD]MOV R1, R2:[/BOLD] Transfiere el contenido del registro R2 al registro R1\n"
             "  - Notación RTL: R1 ← R2\n"
             "  - El contenido de R2 permanece inalterado\n"
             "  - Ejemplo: MOV AX, BX (copia el contenido de BX a AX)\n"
             "  - Tiempo de ejecución: Generalmente un ciclo de reloj\n\n"
 
-            "• [BOLD]Variaciones de transferencia:\n[/BOLD]"
+            "• [BOLD]Variaciones de transferencia:[/BOLD]\n"
             "  - MOV R1, #valor: Carga un valor inmediato en R1 (R1 ← valor)\n"
             "  - MOV R1, [dirección]: Carga desde memoria (R1 ← M[dirección])\n"
             "  - MOV [dirección], R1: Almacena en memoria (M[dirección] ← R1)\n"
@@ -589,19 +602,19 @@ ENCYCLOPEDIA_DATA = {
             "Realizan operaciones matemáticas sobre los datos almacenados en registros. "
             "Utilizan la ALU (Unidad Aritmético-Lógica) del procesador:\n\n"
 
-            "• [BOLD]ADD R1, R2: Suma aritmética\n[/BOLD]"
+            "• [BOLD]ADD R1, R2: Suma aritmética[/BOLD]\n"
             "  - Notación RTL: R1 ← R1 + R2\n"
             "  - Afecta flags de estado (carry, overflow, zero, sign)\n"
             "  - Ejemplo: ADD AX, BX (AX = AX + BX)\n"
             "  - Puede generar carry para operaciones multi-precisión\n\n"
 
-            "• [BOLD]SUB R1, R2: Resta aritmética\n[/BOLD]"
+            "• [BOLD]SUB R1, R2: Resta aritmética[/BOLD]\n"
             "  - Notación RTL: R1 ← R1 - R2\n"
             "  - Implementada como suma con complemento a dos\n"
             "  - Afecta flag de carry (borrow) y overflow\n"
             "  - Ejemplo: SUB AX, BX (AX = AX - BX)\n\n"
 
-            "• [BOLD]Otras operaciones aritméticas:\n[/BOLD]"
+            "• [BOLD]Otras operaciones aritméticas:[/BOLD]\n"
             "  - MUL R1, R2: Multiplicación (resultado en registros extendidos)\n"
             "  - DIV R1, R2: División (cociente y residuo)\n"
             "  - INC R1: Incremento (R1 ← R1 + 1)\n"
@@ -612,53 +625,53 @@ ENCYCLOPEDIA_DATA = {
             "Realizan operaciones lógicas bit a bit sobre los datos. "
             "Son fundamentales para manipulación de bits y operaciones booleanas:\n\n"
 
-            "• [BOLD]AND R1, R2: Operación AND lógica\n[/BOLD]"
+            "• [BOLD]AND R1, R2: Operación AND lógica[/BOLD]\n"
             "  - Notación RTL: R1 ← R1 ∧ R2\n"
             "  - Resultado: 1 solo si ambos bits son 1\n"
             "  - Útil para enmascaramiento de bits\n"
             "  - Ejemplo: AND AX, 0FFh (conserva solo los 8 bits bajos)\n\n"
 
-            "• [BOLD]OR R1, R2: Operación OR lógica\n[/BOLD]"
+            "• [BOLD]OR R1, R2: Operación OR lógica[/BOLD]/n"
             "  - Notación RTL: R1 ← R1 ∨ R2\n"
             "  - Resultado: 0 solo si ambos bits son 0\n"
             "  - Útil para activar bits específicos\n"
             "  - Ejemplo: OR AX, 8000h (activa el bit más significativo)\n\n"
 
-            "• [BOLD]NOT R1: Operación NOT lógica\n[/BOLD]"
+            "• [BOLD]NOT R1: Operación NOT lógica[/BOLD]\n"
             "  - Notación RTL: R1 ← R̄1\n"
             "  - Invierte todos los bits del registro\n"
             "  - Complemento a uno\n"
             "  - Ejemplo: NOT AX (todos los 0s se vuelven 1s y viceversa)\n\n"
 
-            "• [BOLD]Otras operaciones lógicas:\n[/BOLD]"
+            "• [BOLD]Otras operaciones lógicas:[/BOLD]\n"
             "  - XOR R1, R2: OR exclusivo (útil para comparaciones y cifrado)\n"
             "  - TEST R1, R2: AND sin modificar destino (solo afecta flags)\n"
             "  - CMP R1, R2: Comparación (resta sin modificar destino)\n\n"
             
-            "[SUBTITLE]Microoperaciones de Desplazamiento:\n[/SUBTITLE]"
+            "[SUBTITLE]Microoperaciones de Desplazamiento:[/SUBTITLE]\n"
             "Mueven los bits dentro de un registro hacia la izquierda o derecha. "
             "Son fundamentales para operaciones de multiplicación/división por potencias de 2:\n\n"
 
-            "• [BOLD]SHL R1, n: Desplazamiento lógico a la izquierda\n"
+            "• [BOLD]SHL R1, n:[/BOLD] Desplazamiento lógico a la izquierda\n"
             "  - Notación RTL: R1 ← R1 << n\n"
             "  - Desplaza n posiciones a la izquierda\n"
             "  - Rellena con 0s por la derecha\n"
             "  - Equivale a multiplicar por 2^n\n"
             "  - El bit más significativo va al flag de carry\n\n"
 
-            "• [BOLD]SHR R1, n: Desplazamiento lógico a la derecha\n"
+            "• [BOLD]SHR R1, n:[/BOLD] Desplazamiento lógico a la derecha\n"
             "  - Notación RTL: R1 ← R1 >> n\n"
             "  - Desplaza n posiciones a la derecha\n"
             "  - Rellena con 0s por la izquierda\n"
             "  - Equivale a dividir por 2^n (números sin signo)\n"
             "  - El bit menos significativo va al flag de carry\n\n"
 
-            "• [BOLD]Variaciones de desplazamiento:\n[/BOLD]"
+            "• [BOLD]Variaciones de desplazamiento:[/BOLD]/n"
             "  - SAL/SAR: Desplazamiento aritmético (preserva signo)\n"
             "  - ROL/ROR: Rotación (los bits que salen regresan por el otro extremo)\n"
             "  - RCL/RCR: Rotación a través del carry\n\n"
 
-            "[SUBTITLE]UNIDAD DE CONTROL:\n[/SUBTITLE]"
+            "[SUBTITLE]UNIDAD DE CONTROL:[/SUBTITLE]/n"
             "La Unidad de Control (CU) es el componente del procesador responsable de coordinar y controlar todas las operaciones. "
             "Interpreta las instrucciones y genera las señales de control necesarias para ejecutarlas. "
             "Determina cuándo y cómo se realizan las microoperaciones.\n\n"
@@ -984,7 +997,7 @@ ENCYCLOPEDIA_DATA = {
             "  - BUS_GRANT: Concesión del bus\n"
             "  - BUS_REQUEST: Solicitud del bus\n\n"
         
-            "[SUBTITLE]ARQUITECTURAS DE BUS:\n\n[/SUBTITLE]"
+            "[SUBTITLE]ARQUITECTURAS DE BUS:[/SUBTITLE]\n\n"
             
             "[BOLD]1. BUS ÚNICO (Von Neumann):[/BOLD]\n"
             "   • Un solo bus para datos, direcciones y control\n"
@@ -1130,7 +1143,7 @@ ENCYCLOPEDIA_DATA = {
             "     - Índice + Desplazamiento\n"
             "     - Base + Índice + Desplazamiento\n\n"
 
-            "[SUBTITLE]Arquitecturas Superscalares\n[/SUBTITLE]"
+            "[SUBTITLE]Arquitecturas Superescalares[/SUBTITLE]\n"
             "[BOLD]Definición: Ejecutan múltiples instrucciones por ciclo usando unidades de ejecución paralelas.[/BOLD]\n"
             "[BOLD]Requisitos:[/BOLD]\n"
             "- Pipeline profundo.\n"
@@ -1141,7 +1154,7 @@ ENCYCLOPEDIA_DATA = {
             "- Dependencias de datos y control. \n"
             "- Complejidad de diseño.\n\n "
 
-            "[SUBTITLE]Procesadores Multinúcleo\n[/SUBTITLE]"
+            "[SUBTITLE]Procesadores Multinúcleo[/SUBTITLE]\n"
             "[BOLD]Concepto:[/BOLD] Integrar múltiples CPUs (cores) en un solo chip.\n"
             "[BOLD]Ventajas:[/BOLD] \n"
             "- Paralelismo real (threads simultáneos).\n "
