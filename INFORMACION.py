@@ -576,7 +576,7 @@ ENCYCLOPEDIA_DATA = {
             "  - Puede contener instrucciones durante el fetch o datos durante operaciones de carga/almacenamiento\n"
             "  - Su tamaño coincide con el ancho del bus de datos\n\n"
 
-            "[SUBTITLE]MICROOPERACIONES:[/SUBTITLE]\N"
+            "[SUBTITLE]MICROOPERACIONES:[/SUBTITLE]\n"
             "Las microoperaciones son operaciones elementales realizadas en los registros durante un ciclo de reloj. "
             "Estas operaciones constituyen los bloques básicos de construcción para implementar instrucciones más complejas. "
             "Se clasifican en cuatro categorías principales según el tipo de operación que realizan:\n\n"
