@@ -211,7 +211,7 @@ class EncartaApp(ctk.CTk):
         search_entry.pack(fill="x", padx=5, pady=5)
         search_entry.bind('<KeyRelease>', self.update_list)                     # Autocompletado
 
-        self.topic_list = tk.Listbox(nav_frame, font=('Arial', 10), exportselection=False)
+        self.topic_list = tk.Listbox(nav_frame, font=('Arial', 12), exportselection=False)
         self.topic_list.pack(fill="both", expand=True, padx=5, pady=5)
         self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
         self.populate_list()                                                    
@@ -226,7 +226,7 @@ class EncartaApp(ctk.CTk):
         text_container = ctk.CTkFrame(content_frame)                            # Cotenido de los temas
         text_container.pack(fill="both", expand=True, padx=10, pady=5)
 
-        self.content_text = tk.Text(text_container, wrap="word", font=('Arial', 10))
+        self.content_text = tk.Text(text_container, wrap="word", font=('Arial', 14))
         self.content_text.pack(side="left", fill="both", expand=True)
 
         scrollbar = tk.Scrollbar(text_container, orient="vertical", command=self.content_text.yview)
@@ -307,51 +307,83 @@ class EncartaApp(ctk.CTk):
         self.content_text.config(state="normal")
         self.content_text.delete(1.0, tk.END)
         self._text_images = []
+        
+        # Configurar tags
         self.content_text.tag_configure("padding", lmargin1=30, lmargin2=30, rmargin=30)
         self.content_text.tag_configure("subtitle", font=("Arial", 18, "bold"))
-        self.content_text.tag_configure("bold", font=("Arial", 12, "bold"))
-
+        self.content_text.tag_configure("bold", font=("Arial", 16, "bold"))
+        self.content_text.tag_configure("center", justify="center")
+        
         self.content_text.insert(tk.END, "\n\n", "padding")
-
+        
         parts = re.split(r'(\[IMAGE:.*?\])|(\[SUBTITLE\].*?\[/SUBTITLE\])|(\[BOLD\].*?\[/BOLD\])', content)
+        
         for part in parts:
             if part is None:
                 continue
-            max_width, max_height = 600, 250
-            self.content_text.tag_configure("center", justify="center")
+                
             match = re.match(r'\[IMAGE:(.*?)\]', part)
             if match:
                 image_path = match.group(1).strip()
-                try:
-                    img = Image.open(image_path)
-                    #### We calculate the size of the image to fit in the text area
-                    w, h = img.size
-                    ratio = min(max_width / w, max_height / h)
-                    new_size = (int(w * ratio), int(h * ratio))
-                    img = img.resize(new_size, Image.LANCZOS)
-                    ####
-                    photo = ImageTk.PhotoImage(img)
-                    self.content_text.insert(tk.END, "\n", "center")
-                    self.content_text.image_create(tk.END, image=photo)
-                    self._text_images.append(photo)
-                    self.content_text.insert(tk.END, "\n", "center")
-                    self.content_text.insert(tk.END, "\n\n", "padding")
-                    
-                except Exception as e:
-                    self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n\n", "padding")
-                    print(f"Error al cargar la imagen {image_path}: {e}")
+                self._insert_centered_image(image_path)
+                
             elif re.match(r'\[SUBTITLE\](.*?)\[/SUBTITLE\]', part):
-                self.content_text.insert(tk.END, "\n\n\n", "padding")  # Más padding arriba
+                self.content_text.insert(tk.END, "\n\n\n", "padding")
                 subtitle = re.findall(r'\[SUBTITLE\](.*?)\[/SUBTITLE\]', part)[0]
-                self.content_text.insert(tk.END, subtitle + "\n\n", ("subtitle", "padding"))
+                self.content_text.insert(tk.END, subtitle + "\n\n", ("subtitle", "padding", "center"))
+                
             elif re.match(r'\[BOLD\](.*?)\[/BOLD\]', part):
                 bold_text = re.findall(r'\[BOLD\](.*?)\[/BOLD\]', part)[0]
                 self.content_text.insert(tk.END, bold_text, ("bold", "padding"))
+                
             else:
-                self.content_text.insert(tk.END, part, "padding")
+                if part.strip():  # Solo insertar si no está vacío
+                    self.content_text.insert(tk.END, part, "padding")
+        
         self.content_text.insert(tk.END, "\n\n", "padding")
         self.content_text.config(state="disabled")
-        
+
+    def _insert_centered_image(self, image_path):
+        """Inserta una imagen centrada con altura fija de 220px y ancho proporcional"""
+        try:
+            # Cargar la imagen original
+            original_image = Image.open(image_path)
+            
+            # Calcular nuevas dimensiones manteniendo proporción con altura fija de 220
+            target_height = 220
+            original_width, original_height = original_image.size
+            aspect_ratio = original_width / original_height
+            new_width = int(target_height * aspect_ratio)
+            
+            # Redimensionar la imagen
+            resized_image = original_image.resize((new_width, target_height), Image.LANCZOS)
+            
+            # Convertir a PhotoImage para tkinter
+            photo = ImageTk.PhotoImage(resized_image)
+            
+            # Guardar referencia para evitar que se elimine por el garbage collector
+            self._text_images.append(photo)
+            
+            # Insertar la imagen centrada en el texto
+            self.content_text.insert(tk.END, "\n")
+            
+            # Crear un frame invisible para centrar la imagen
+            image_index = self.content_text.index(tk.INSERT)
+            
+            # Insertar la imagen
+            self.content_text.image_create(tk.INSERT, image=photo)
+            
+            # Aplicar tag de centrado a la línea de la imagen
+            line_start = image_index.split('.')[0] + '.0'
+            line_end = str(int(image_index.split('.')[0]) + 1) + '.0'
+            self.content_text.tag_add("center", line_start, line_end)
+            
+            self.content_text.insert(tk.END, "\n\n")
+            
+        except Exception as e:
+            print(f"Error cargando imagen {image_path}: {e}")
+            # Insertar texto alternativo si la imagen no se puede cargar
+            self.content_text.insert(tk.END, "\n[Imagen no disponible]\n\n", ("center", "padding"))
     
 
     def show_topic(self, *topics):
