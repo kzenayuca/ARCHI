@@ -141,11 +141,10 @@ class EncartaApp(ctk.CTk):
         # Slides: solo agrega después del texto
         self.micro_images = ["prueba1.jpeg", "prueba2.jpeg", "prueba3.jpeg"]
         self.micro_index = 0
-        self.insert_slide_into_text()  # Esto solo debe agregar la imagen y botones al final
         self.slide_frame = ctk.CTkFrame(self.content_text, fg_color="transparent")
         self.content_text.window_create(tk.END, window=self.slide_frame)
-        self.update_slide_frame()                                   # Inserta la 1ra slide
-
+        self.update_slide_frame()
+        
     def update_slide_frame(self):
         # Limpia el frame
         for widget in self.slide_frame.winfo_children():
