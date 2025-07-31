@@ -1,4 +1,3 @@
-# Sample data: topics and their content
 ENCYCLOPEDIA_DATA = {
     "  Electrónica digital y circuitos lógicos": {
         "title": "Electronica Digital y Circuitos Logicos",
@@ -577,7 +576,7 @@ ENCYCLOPEDIA_DATA = {
             "  - Puede contener instrucciones durante el fetch o datos durante operaciones de carga/almacenamiento\n"
             "  - Su tamaño coincide con el ancho del bus de datos\n\n"
 
-            "[SUBTITLE]MICROOPERACIONES:[/SUBTITLE]\n"
+            "[SUBTITLE]MICROOPERACIONES:[/SUBTITLE]\N"
             "Las microoperaciones son operaciones elementales realizadas en los registros durante un ciclo de reloj. "
             "Estas operaciones constituyen los bloques básicos de construcción para implementar instrucciones más complejas. "
             "Se clasifican en cuatro categorías principales según el tipo de operación que realizan:\n\n"
@@ -729,7 +728,7 @@ ENCYCLOPEDIA_DATA = {
             "1. `TEMP ← R1`\n"
             "2. `ALU ← TEMP + R2`\n"
             "3. `R1 ← ALU`\n"
-            "Cada una de estas microoperaciones ocurre en un ciclo de reloj y es orquestada por señales de control.\n\n"
+            "Cada una de estas microoperaciones ocurre en un ciclo de reloj y es orquestada por señales de control.\n"
         ),
         "url" : "https://wayground.com/admin/assessment/6881aedc882c169778fbdd1a?source=lesson_share"
     },
