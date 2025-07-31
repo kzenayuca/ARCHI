@@ -39,7 +39,6 @@ class EncartaApp(ctk.CTk):
         self.default_font = ctk.CTkFont(family="Arial", size=16, weight="bold") 
 
 
-
     def show_main_menu(self):
         if self.search_frame:
             self.search_frame.pack_forget()
@@ -89,7 +88,7 @@ class EncartaApp(ctk.CTk):
         center_inner.rowconfigure(4, weight=1)
 
         # Título: ARCHI
-        title = ctk.CTkLabel(center_inner, text="ARCHI", font=("Helvetica", 40, "bold"), text_color="#2c3e50")
+        title = ctk.CTkLabel(center_inner, text="ARCHI", font=('padmaa-Bold.1.1', 80, "bold"), text_color="#2c3e50")
         title.grid(row=0, column=0, pady=30, padx=30)
 
         # Imagen centrada
@@ -129,21 +128,58 @@ class EncartaApp(ctk.CTk):
             btn.pack(pady=30, fill="x")
 
 
-
     def show_microoperaciones(self):
         self.show_search_page()
-        self.search_var.set("")                                                 # Limpia la entrada de búsqueda
+        self.search_var.set("")  # Limpia la entrada de búsqueda
         self.update_list()
         self.title_label.configure(text="Microoperaciones")
 
         # Mostrar descripción e imágenes con insert_content_with_images
-        description = ENCYCLOPEDIA_DATA.get("MicroOperaciones_Y_Nivel_RTL", {}).get("content", "")
+        description = ENCYCLOPEDIA_DATA.get("  Microoperaciones y nivel RTL", {}).get("content", "")
         self.insert_content_with_images(description)
 
-        self.micro_images = ["prueba1.jpeg", "prueba2.jpeg", "prueba3.jpeg"]    # Lista de slides
+        # Slides: solo agrega después del texto
+        self.micro_images = ["prueba1.jpeg", "prueba2.jpeg", "prueba3.jpeg"]
         self.micro_index = 0
-        self.insert_slide_into_text()                                           # Inserta la 1ra slide
+        self.insert_slide_into_text()  # Esto solo debe agregar la imagen y botones al final
+        self.slide_frame = ctk.CTkFrame(self.content_text, fg_color="transparent")
+        self.content_text.window_create(tk.END, window=self.slide_frame)
+        self.update_slide_frame()                                   # Inserta la 1ra slide
 
+    def update_slide_frame(self):
+        # Limpia el frame
+        for widget in self.slide_frame.winfo_children():
+            widget.destroy()
+        # Muestra la imagen
+        img_path = self.micro_images[self.micro_index]
+        try:
+            img = Image.open(img_path).resize((400, 250))
+            self.micro_photo = CTkImage(light_image=img, size=(400, 250))
+            img_label = ctk.CTkLabel(self.slide_frame, image=self.micro_photo, text="")
+            img_label.pack()
+        except Exception as e:
+            err_label = ctk.CTkLabel(self.slide_frame, text=f"No se pudo cargar la imagen: {img_path}")
+            err_label.pack()
+        # Botones
+        btn_frame = ctk.CTkFrame(self.slide_frame, fg_color="transparent")
+        btn_frame.pack()
+        prev_btn = ctk.CTkButton(btn_frame, text=self.wrap_text("Anterior"), command=self.show_prev_micro_image)
+        prev_btn.pack(side="left", padx=5)
+        next_btn = ctk.CTkButton(btn_frame, text=self.wrap_text("Siguiente"), command=self.show_next_micro_image)
+        next_btn.pack(side="left", padx=5)
+
+    def show_micro_image(self):
+        self.update_slide_frame()
+
+    def show_next_micro_image(self):
+        if self.micro_index < len(self.micro_images) - 1:
+            self.micro_index += 1
+            self.show_micro_image()
+
+    def show_prev_micro_image(self):
+        if self.micro_index > 0:
+            self.micro_index -= 1
+            self.show_micro_image()
 
 
     def show_search_page(self):
@@ -176,7 +212,7 @@ class EncartaApp(ctk.CTk):
         search_entry.pack(fill="x", padx=5, pady=5)
         search_entry.bind('<KeyRelease>', self.update_list)                     # Autocompletado
 
-        self.topic_list = tk.Listbox(nav_frame, font=('Helvetica', 10), exportselection=False)
+        self.topic_list = tk.Listbox(nav_frame, font=('Arial', 10), exportselection=False)
         self.topic_list.pack(fill="both", expand=True, padx=5, pady=5)
         self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
         self.populate_list()                                                    
@@ -191,7 +227,7 @@ class EncartaApp(ctk.CTk):
         text_container = ctk.CTkFrame(content_frame)                            # Cotenido de los temas
         text_container.pack(fill="both", expand=True, padx=10, pady=5)
 
-        self.content_text = tk.Text(text_container, wrap="word", font=('Helvetica', 10))
+        self.content_text = tk.Text(text_container, wrap="word", font=('Arial', 10))
         self.content_text.pack(side="left", fill="both", expand=True)
 
         scrollbar = tk.Scrollbar(text_container, orient="vertical", command=self.content_text.yview)
@@ -268,20 +304,20 @@ class EncartaApp(ctk.CTk):
             messagebox.showerror("Error", f"No se encontró información para '{topic}'.")
 
 
-    
     def insert_content_with_images(self, content):
         self.content_text.config(state="normal")
         self.content_text.delete(1.0, tk.END)
         self._text_images = []
+        self.content_text.tag_configure("padding", lmargin1=30, lmargin2=30, rmargin=30)
+        self.content_text.tag_configure("subtitle", font=("Arial", 20, "bold"))
+        self.content_text.tag_configure("bold", font=("Arial", 18, "bold"))
 
-        # Configura el tag para padding lateral
-        self.content_text.tag_configure("padding", lmargin1=30, lmargin2=30, rmargin=30)  # Puedes ajustar los valores
-
-        # Padding superior
         self.content_text.insert(tk.END, "\n\n", "padding")
 
-        parts = re.split(r'(\[IMAGE:.*?\])', content)
+        parts = re.split(r'(\[IMAGE:.*?\])|(\[SUBTITLE\].*?\[/SUBTITLE\])|(\[BOLD\].*?\[/BOLD\])', content)
         for part in parts:
+            if part is None:
+                continue
             match = re.match(r'\[IMAGE:(.*?)\]', part)
             if match:
                 image_path = match.group(1).strip()
@@ -291,23 +327,27 @@ class EncartaApp(ctk.CTk):
                     photo = ImageTk.PhotoImage(img)
                     self.content_text.image_create(tk.END, image=photo)
                     self._text_images.append(photo)
-                    self.content_text.insert(tk.END, '\n\n', "padding")  # Padding después de la imagen
+                    self.content_text.insert(tk.END, '\n\n', "padding")
                 except Exception as e:
                     self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n\n", "padding")
-                    print(f"Error al cargar la imagen {image_path}:{e}")
+                    print(f"Error al cargar la imagen {image_path}: {e}")
+            elif re.match(r'\[SUBTITLE\](.*?)\[/SUBTITLE\]', part):
+                subtitle = re.findall(r'\[SUBTITLE\](.*?)\[/SUBTITLE\]', part)[0]
+                self.content_text.insert(tk.END, subtitle + "\n\n", ("subtitle", "padding"))
+            elif re.match(r'\[BOLD\](.*?)\[/BOLD\]', part):
+                bold_text = re.findall(r'\[BOLD\](.*?)\[/BOLD\]', part)[0]
+                self.content_text.insert(tk.END, bold_text, ("bold", "padding"))
             else:
-                self.content_text.insert(tk.END, part + "\n\n", "padding")  # Padding después del texto
-
-        # Padding inferior
+                self.content_text.insert(tk.END, part, "padding")
         self.content_text.insert(tk.END, "\n\n", "padding")
-        self.content_text.config(state="disabled")                           # Desabilitar edición del texto
-
-
+        self.content_text.config(state="disabled")
+        
+    
 
     def show_topic(self, *topics):
         self.show_search_page()
         combined_title = " + ".join([ENCYCLOPEDIA_DATA[t]['title'] for t in topics if t in ENCYCLOPEDIA_DATA])
-        self.search_var.set("")                                                 # Limpiar la entrada de búsqueda
+        self.search_var.set("")  # Limpiar la entrada de búsqueda
         self.update_list()
         self.title_label.configure(text=combined_title)
 
@@ -323,52 +363,6 @@ class EncartaApp(ctk.CTk):
                 link_btn = ctk.CTkButton(self.content_text, text=self.wrap_text("Quizz time!"), command=lambda: webbrowser.open(url))
                 self.content_text.window_create(tk.END, window=link_btn)
                 self.content_text.insert(tk.END, "\n")
-
-
-
-    def insert_slide_into_text(self):
-        img_path = self.micro_images[self.micro_index]                          # Inserta la imagen actual
-        try:
-            img = Image.open(img_path).resize((400, 250))
-            self.micro_photo = CTkImage(light_image=img, size=(400, 250))
-            self.content_text.image_create(tk.END, image=self.micro_photo)
-            self.content_text.insert(tk.END, '\n')
-        except Exception as e:
-            self.content_text.insert(tk.END, f"No se pudo cargar la imagen: {img_path}\n")
-
-        # Marco para botones de manejo de slides
-        btn_frame = ctk.CTkFrame(self.content_text, fg_color="transparent")
-        prev_btn = ctk.CTkButton(btn_frame, text=self.wrap_text("Anterior"), command=self.show_prev_micro_image, corner_radius=8, fg_color="#2e86de", hover_color="#1e6bb8")
-        prev_btn.pack(side="left", padx=5)                                      # Slide anterior
-        next_btn = ctk.CTkButton(btn_frame, text=self.wrap_text("Siguiente"), command=self.show_next_micro_image, corner_radius=8, fg_color="#2e86de", hover_color="#1e6bb8")
-        next_btn.pack(side="left", padx=5)                                      # Siguiente slide
-
-        self.content_text.window_create(tk.END, window=btn_frame)
-        self.content_text.insert(tk.END, '\n')
-
-
-
-    def show_micro_image(self):
-        # Limpia e inserta nuevamente el contenido
-        description = ENCYCLOPEDIA_DATA.get("MicroOperaciones_Y_Nivel_RTL", {}).get("content", "")
-        self.content_text.config(state="normal")
-        self.content_text.delete(1.0, tk.END)
-        self.insert_content_with_images(description)
-        self.insert_slide_into_text()
-
-
-
-    def show_next_micro_image(self):
-        if self.micro_index < len(self.micro_images) - 1:
-            self.micro_index += 1
-            self.show_micro_image()
-
-
-
-    def show_prev_micro_image(self):
-        if self.micro_index > 0:
-            self.micro_index -= 1
-            self.show_micro_image()
 
 
 
