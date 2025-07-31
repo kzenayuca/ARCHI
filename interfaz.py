@@ -308,8 +308,8 @@ class EncartaApp(ctk.CTk):
         self.content_text.delete(1.0, tk.END)
         self._text_images = []
         self.content_text.tag_configure("padding", lmargin1=30, lmargin2=30, rmargin=30)
-        self.content_text.tag_configure("subtitle", font=("Arial", 20, "bold"))
-        self.content_text.tag_configure("bold", font=("Arial", 18, "bold"))
+        self.content_text.tag_configure("subtitle", font=("Arial", 18, "bold"))
+        self.content_text.tag_configure("bold", font=("Arial", 12, "bold"))
 
         self.content_text.insert(tk.END, "\n\n", "padding")
 
@@ -341,6 +341,7 @@ class EncartaApp(ctk.CTk):
                     self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n\n", "padding")
                     print(f"Error al cargar la imagen {image_path}: {e}")
             elif re.match(r'\[SUBTITLE\](.*?)\[/SUBTITLE\]', part):
+                self.content_text.insert(tk.END, "\n\n\n", "padding")  # Más padding arriba
                 subtitle = re.findall(r'\[SUBTITLE\](.*?)\[/SUBTITLE\]', part)[0]
                 self.content_text.insert(tk.END, subtitle + "\n\n", ("subtitle", "padding"))
             elif re.match(r'\[BOLD\](.*?)\[/BOLD\]', part):
