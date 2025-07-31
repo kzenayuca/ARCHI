@@ -187,7 +187,7 @@ class EncartaApp(ctk.CTk):
         if self.search_frame:
             self.search_frame.pack_forget()
 
-        self.search_frame = ctk.CTkFrame(self, fg_color="transparent", width=900, height=720)          # Contenedor back_button
+        self.search_frame = ctk.CTkFrame(self, fg_color="transparent", width=900, height=720)
         self.search_frame.pack(fill="both", expand=True)
 
         bg_label = ctk.CTkLabel(self.search_frame, image=self.bg_img, text="")
@@ -196,32 +196,17 @@ class EncartaApp(ctk.CTk):
         back_button = ctk.CTkButton(self.search_frame, text=self.wrap_text("← Volver al inicio"), command=self.show_main_menu, height=30)
         back_button.pack(anchor="w", padx=5, pady=5)
 
-        container = ctk.CTkFrame(self.search_frame, fg_color="transparent")     # Contenedor general para navegación y contenido
+        container = ctk.CTkFrame(self.search_frame, fg_color="transparent")
         container.pack(fill="both", expand=True)
-        # ==== Marco de contenidos: derecha ====
-        content_frame = ctk.CTkFrame(container, fg_color="lightblue")
-        content_frame.pack(side="left", fill="both", expand=True, padx=5, pady=5)
 
-        self.title_label = ctk.CTkLabel(content_frame, text="Seleccione un tema", font=ctk.CTkFont(size=20, weight="bold"), fg_color="transparent")
-        self.title_label.pack(pady=10)
-
-        text_container = ctk.CTkFrame(content_frame)                            # Cotenido de los temas
-        text_container.pack(fill="both", expand=True, padx=10, pady=5)
-
-        self.content_text = tk.Text(text_container, wrap="word", font=('Arial', 14))
-        self.content_text.pack(side="left", fill="both", expand=True)
-
-        scrollbar = tk.Scrollbar(text_container, orient="vertical", command=self.content_text.yview)
-        scrollbar.pack(side="right", fill="y")
-        self.content_text.config(yscrollcommand=scrollbar.set)
-        # ==== Marco de navegación: izquierda ====
+        # ==== Marco de navegación: izquierda (PRIMERO) ====
         nav_frame = ctk.CTkFrame(
             container, 
-            width=280,  # Aumenté el ancho para mejor usabilidad
+            width=280,
             corner_radius=10,
-            fg_color=("gray95", "gray15"),  # Color adaptativo al tema
+            fg_color=("#f8f4ff", "#2d2438"),  # Lavanda pastel
             border_width=1,
-            border_color=("gray80", "gray30")
+            border_color=("#e6d7ff", "#4a3a5c")
         )
         nav_frame.pack(fill="y", side="left", padx=(10, 5), pady=10)
         nav_frame.pack_propagate(False)  # Mantiene el ancho fijo
@@ -231,12 +216,12 @@ class EncartaApp(ctk.CTk):
             nav_frame, 
             text="📚 Navegación",
             font=ctk.CTkFont(size=16, weight="bold"),
-            text_color=("gray20", "gray80")
+            text_color=("#6b46c1", "#c4b5fd")  # Púrpura pastel
         )
         nav_title.pack(pady=(15, 10), padx=15, anchor="w")
 
         # Separador visual
-        separator = ctk.CTkFrame(nav_frame, height=2, fg_color=("gray70", "gray40"))
+        separator = ctk.CTkFrame(nav_frame, height=2, fg_color=("#d8b4fe", "#7c3aed"))
         separator.pack(fill="x", padx=15, pady=(0, 15))
 
         # Marco para la búsqueda
@@ -248,7 +233,7 @@ class EncartaApp(ctk.CTk):
             search_frame,
             text="🔍 Buscar tema:",
             font=ctk.CTkFont(size=13, weight="bold"),
-            text_color=("gray30", "gray70"),
+            text_color=("#7c3aed", "#a78bfa"),  # Violeta pastel
             anchor="w"
         )
         search_label.pack(fill="x", pady=(0, 8))
@@ -262,10 +247,10 @@ class EncartaApp(ctk.CTk):
             height=35,
             corner_radius=8,
             border_width=2,
-            border_color=("gray60", "gray50"),
-            fg_color=("white", "gray20"),
-            text_color=("gray10", "gray90"),
-            placeholder_text_color=("gray50", "gray60"),
+            border_color=("#c4b5fd", "#8b5cf6"),  # Lavanda para bordes
+            fg_color=("#fefcff", "#1f1a2e"),      # Blanco lavanda
+            text_color=("#4c1d95", "#ddd6fe"),    # Texto violeta
+            placeholder_text_color=("#a855f7", "#9ca3af"),  # Rosa pastel
             font=ctk.CTkFont(size=12)
         )
         search_entry.pack(fill="x", pady=(0, 5))
@@ -276,7 +261,7 @@ class EncartaApp(ctk.CTk):
             search_frame,
             text="",
             font=ctk.CTkFont(size=10),
-            text_color=("gray50", "gray60"),
+            text_color=("#a855f7", "#c4b5fd"),  # Rosa-púrpura pastel
             anchor="w"
         )
         self.results_label.pack(fill="x", pady=(2, 0))
@@ -290,7 +275,7 @@ class EncartaApp(ctk.CTk):
             list_frame,
             text="📋 Temas disponibles:",
             font=ctk.CTkFont(size=13, weight="bold"),
-            text_color=("gray30", "gray70"),
+            text_color=("#7c3aed", "#a78bfa"),  # Violeta pastel
             anchor="w"
         )
         list_label.pack(fill="x", pady=(0, 8))
@@ -305,10 +290,10 @@ class EncartaApp(ctk.CTk):
             font=('Segoe UI', 11),
             exportselection=False,
             selectmode=tk.SINGLE,
-            bg="white" if ctk.get_appearance_mode() == "Light" else "#2b2b2b",
-            fg="black" if ctk.get_appearance_mode() == "Light" else "white",
-            selectbackground="#0078d4",
-            selectforeground="white",
+            bg="#fefcff" if ctk.get_appearance_mode() == "Light" else "#2d2438",  # Fondo lavanda
+            fg="#4c1d95" if ctk.get_appearance_mode() == "Light" else "#ddd6fe",  # Texto violeta
+            selectbackground="#b5e9fd",      # Selección lavanda
+            selectforeground="#3C2693",      # Texto seleccionado violeta
             highlightthickness=0,
             borderwidth=1,
             relief="solid",
@@ -319,14 +304,14 @@ class EncartaApp(ctk.CTk):
         self.topic_list.pack(side="left", fill="both", expand=True)
 
         # Scrollbar personalizada para la lista
-        scrollbar = ctk.CTkScrollbar(
+        scrollbar_nav = ctk.CTkScrollbar(
             listbox_container,
             orientation="vertical",
             command=self.topic_list.yview,
             width=16
         )
-        scrollbar.pack(side="right", fill="y", padx=(2, 0))
-        self.topic_list.config(yscrollcommand=scrollbar.set)
+        scrollbar_nav.pack(side="right", fill="y", padx=(2, 0))
+        self.topic_list.config(yscrollcommand=scrollbar_nav.set)
 
         # Eventos
         self.topic_list.bind('<<ListboxSelect>>', self.display_topic)
@@ -335,7 +320,7 @@ class EncartaApp(ctk.CTk):
         self.topic_list.bind('<FocusIn>', self.on_list_focus_in)
         self.topic_list.bind('<FocusOut>', self.on_list_focus_out)
 
-        # Botones de acción (opcional)
+        # Botones de acción
         action_frame = ctk.CTkFrame(nav_frame, fg_color="transparent")
         action_frame.pack(fill="x", padx=15, pady=(5, 10))
 
@@ -346,9 +331,9 @@ class EncartaApp(ctk.CTk):
             width=80,
             height=28,
             corner_radius=6,
-            fg_color=("gray70", "gray40"),
-            hover_color=("gray60", "gray50"),
-            text_color=("gray20", "gray80"),
+            fg_color=("#f3e8ff", "#4a3a5c"),     # Lavanda claro
+            hover_color=("#e9d5ff", "#5b4670"),  # Lavanda hover
+            text_color=("#4c1d95", "#c4b5fd"),   # Texto violeta
             font=ctk.CTkFont(size=10),
             command=self.clear_search
         )
@@ -361,16 +346,71 @@ class EncartaApp(ctk.CTk):
             width=100,
             height=28,
             corner_radius=6,
-            fg_color=("gray70", "gray40"),
-            hover_color=("gray60", "gray50"),
-            text_color=("gray20", "gray80"),
+            fg_color=("#f3e8ff", "#4a3a5c"),     # Lavanda claro
+            hover_color=("#e9d5ff", "#5b4670"),  # Lavanda hover
+            text_color=("#7c3aed", "#c4b5fd"),   # Texto violeta
             font=ctk.CTkFont(size=10),
             command=self.refresh_list
         )
         refresh_btn.pack(side="right", pady=2)
 
+        # ==== Marco de contenidos: derecha (SEGUNDO) ====
+        content_frame = ctk.CTkFrame(
+            container, 
+            fg_color=("#f8f4ff", "#2a1f2f"),    #jjj # Rosa muy claro / Violeta oscuro
+            corner_radius=10,
+            border_width=1,
+            border_color=("#f0d9ff", "#4a3a5c")
+        )
+        content_frame.pack(side="right", fill="both", expand=True, padx=(5, 10), pady=10)
+
+        # Título del contenido
+        self.title_label = ctk.CTkLabel(
+            content_frame, 
+            text="Seleccione un tema", 
+            font=ctk.CTkFont(size=20, weight="bold"), 
+            fg_color="transparent",
+            text_color=("#000000", "#c4b5fd")  # Púrpura pastel
+        )
+        self.title_label.pack(pady=15)
+
+        # Contenido de los temas
+        text_container = ctk.CTkFrame(
+            content_frame,
+            fg_color=("#ffffff", "#1f1a2e"),     # Blanco / Violeta muy oscuro
+            corner_radius=8,
+            border_width=1,
+            border_color=("#e6d7ff", "#4a3a5c")
+        )
+        text_container.pack(fill="both", expand=True, padx=15, pady=(0, 15))
+
+        self.content_text = tk.Text(
+            text_container, 
+            wrap="word", 
+            font=('Arial', 14),
+            bg="#ffffff" if ctk.get_appearance_mode() == "Light" else "#1f1a2e",
+            fg="#000000" if ctk.get_appearance_mode() == "Light" else "#ddd6fe",
+            selectbackground="#c4b5fd",
+            selectforeground="#4c1d95",
+            insertbackground="#7c3aed",  # Color del cursor
+            relief="flat",
+            borderwidth=0
+        )
+        self.content_text.pack(side="left", fill="both", expand=True, padx=10, pady=10)
+
+        # Scrollbar para el contenido
+        scrollbar_content = ctk.CTkScrollbar(
+            text_container, 
+            orientation="vertical", 
+            command=self.content_text.yview,
+            width=16
+        )
+        scrollbar_content.pack(side="right", fill="y", padx=(0, 10), pady=10)
+        self.content_text.config(yscrollcommand=scrollbar_content.set)
+
         # Inicializar la lista
         self.populate_list()
+
 
     # Métodos adicionales que necesitarás implementar:
     def update_list(self, event=None):
@@ -427,11 +467,7 @@ class EncartaApp(ctk.CTk):
 
     def on_list_focus_out(self, event):
         """Cuando la lista pierde el foco"""
-        pass  # Puedes agregar funcionalidad aquí si es necesario                                            
-
-
-
-
+        pass  # Puedes agregar funcionalidad aquí si es necesario
 
     def populate_list(self):
         self.topic_list.delete(0, tk.END)
