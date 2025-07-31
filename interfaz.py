@@ -144,7 +144,7 @@ class EncartaApp(ctk.CTk):
         self.slide_frame = ctk.CTkFrame(self.content_text, fg_color="transparent")
         self.content_text.window_create(tk.END, window=self.slide_frame)
         self.update_slide_frame()
-        
+
     def update_slide_frame(self):
         # Limpia el frame
         for widget in self.slide_frame.winfo_children():
@@ -317,16 +317,26 @@ class EncartaApp(ctk.CTk):
         for part in parts:
             if part is None:
                 continue
+            max_width, max_height = 600, 250
+            self.content_text.tag_configure("center", justify="center")
             match = re.match(r'\[IMAGE:(.*?)\]', part)
             if match:
                 image_path = match.group(1).strip()
                 try:
                     img = Image.open(image_path)
-                    img = img.resize((400, 250))
+                    #### We calculate the size of the image to fit in the text area
+                    w, h = img.size
+                    ratio = min(max_width / w, max_height / h)
+                    new_size = (int(w * ratio), int(h * ratio))
+                    img = img.resize(new_size, Image.LANCZOS)
+                    ####
                     photo = ImageTk.PhotoImage(img)
+                    self.content_text.insert(tk.END, "\n", "center")
                     self.content_text.image_create(tk.END, image=photo)
                     self._text_images.append(photo)
-                    self.content_text.insert(tk.END, '\n\n', "padding")
+                    self.content_text.insert(tk.END, "\n", "center")
+                    self.content_text.insert(tk.END, "\n\n", "padding")
+                    
                 except Exception as e:
                     self.content_text.insert(tk.END, f"[No se pudo cargar la imagen: {image_path}]\n\n", "padding")
                     print(f"Error al cargar la imagen {image_path}: {e}")
